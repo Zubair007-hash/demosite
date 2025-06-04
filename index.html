@@ -1,34 +1,300 @@
 <!DOCTYPE html>
-<html lang="en" class=""> <!-- Ensure class attribute is present for JS to toggle 'dark' -->
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#2563eb"> <!-- Updated to a more primary blue -->
-    <title>Pet's Care Clinic & Diagnostic Centre</title>
+    <meta name="theme-color" content="#0b82b5"> <title>Pet's Care Clinic & Diagnostic Centre</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
     <style>
-        /* Base styles - applied in both light and dark mode unless overridden */
+        :root {
+            /* Light Theme (Default) */
+            --bg-primary: #f3f4f6; /* Tailwind bg-gray-100 */
+            --bg-secondary: #ffffff; /* Tailwind bg-white (used for cards, some sections) */
+            --bg-tertiary: #f9fafb; /* Tailwind bg-gray-50 (used for pricing, FAQ sections) */
+            --bg-accent: #0b82b5;
+            --bg-accent-darker: #086f9c;
+            --bg-accent-hover: #0e9ad1;
+            --bg-accent-light: #e0f2f7;
+            --bg-accent-gradient-start: #e0f2f7;
+            --bg-accent-gradient-end: #ccecf5;
+            --bg-mobile-menu-hover: rgba(14, 154, 209, 0.5); /* #0e9ad1/50 */
+            --bg-theme-toggle-hover: rgba(107, 114, 128, 0.1); /* Lighter gray for hover on light nav */
+
+            --text-primary: #374151; /* Tailwind text-gray-700 */
+            --text-secondary: #4b5563; /* Tailwind text-gray-600 */
+            --text-strong: #1f2937; /* Tailwind text-gray-800 equivalent */
+            --text-headings: #086f9c;
+            --text-on-accent: #ffffff;
+            --text-on-accent-secondary: #e0f2f7;
+            --text-on-accent-placeholder: #ccecf5;
+            --text-accent-hover: #fcd34d; /* Tailwind text-yellow-300 */
+
+            --border-primary: #e5e7eb; /* Tailwind border-gray-200 */
+            --border-accent: #0e9ad1;
+            --border-input-accent: #075985; /* For form on accent bg */
+
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --shadow-accent-color: rgba(11, 130, 181, 0.5);
+
+            --hero-overlay-color: rgba(11, 130, 181, 0.85);
+            --hero-text-color: #ffffff;
+
+            --btn-primary-bg: #facc15; /* Tailwind bg-yellow-400 */
+            --btn-primary-hover-bg: #fde047; /* Tailwind hover:bg-yellow-300 */
+            --btn-primary-text: #086a94;
+
+            --btn-secondary-border: #ffffff;
+            --btn-secondary-text: #ffffff;
+            --btn-secondary-hover-bg: #ffffff;
+            --btn-secondary-hover-text: #0b82b5;
+
+            --input-bg-accent: #086f9c; /* Form inputs on accent background */
+            --input-text-accent: #ffffff;
+            --input-placeholder-accent: #ccecf5;
+            --focus-ring-color: #facc15; /* yellow-400 */
+
+            /* Service Card Colors - Light Theme */
+            --health-checkup-border: #0b82b5; --health-checkup-bg-start: #e0f2f7; --health-checkup-bg-end: #ccecf5; --health-checkup-icon: #086f9c; --health-checkup-heading: #086f9c; --health-checkup-list-icon: #0b82b5;
+            --vaccinations-border: #6366f1; --vaccinations-bg-start: #eef2ff; --vaccinations-bg-end: #e0e7ff; --vaccinations-icon: #4f46e5; --vaccinations-heading: #4f46e5; --vaccinations-list-icon: #6366f1;
+            --surgical-border: #8b5cf6; --surgical-bg-start: #f5f3ff; --surgical-bg-end: #ede9fe; --surgical-icon: #7c3aed; --surgical-heading: #6d28d9; --surgical-list-icon: #8b5cf6;
+            --grooming-border: #ec4899; --grooming-bg-start: #fdf2f8; --grooming-bg-end: #fce7f3; --grooming-icon: #db2777; --grooming-heading: #be185d; --grooming-list-icon: #ec4899;
+            --deworming-border: #10b981; --deworming-bg-start: #ecfdf5; --deworming-bg-end: #d1fae5; --deworming-icon: #059669; --deworming-heading: #047857; --deworming-list-icon: #10b981;
+            --diagnostic-border: #f59e0b; --diagnostic-bg-start: #fffbeb; --diagnostic-bg-end: #fef3c7; --diagnostic-icon: #d97706; --diagnostic-heading: #b45309; --diagnostic-list-icon: #f59e0b;
+            --emergency-border: #ef4444; --emergency-bg-start: #fef2f2; --emergency-bg-end: #fee2e2; --emergency-icon: #dc2626; --emergency-heading: #b91c1c; --emergency-list-icon: #ef4444;
+
+            /* WhatsApp Button Colors (Consistent across themes) */
+            --whatsapp-bg: #25D366; /* Standard WhatsApp Green */
+            --whatsapp-hover-bg: #128C7E; /* Darker WhatsApp Green for hover */
+            --whatsapp-text: #ffffff;
+        }
+
+        html[data-theme="dark"] {
+            --bg-primary: #1f2937; /* gray-800 */
+            --bg-secondary: #374151; /* gray-700 */
+            --bg-tertiary: #111827; /* gray-900 */
+            --bg-accent: #1d4ed8; /* A darker, more vibrant blue for dark mode */
+            --bg-accent-darker: #1e40af;
+            --bg-accent-hover: #2563eb;
+            --bg-accent-light: #2c3e50; /* Darker card background for accent areas */
+            --bg-accent-gradient-start: #1e3a8a; /* Darker blue gradients */
+            --bg-accent-gradient-end: #1c2a3f;
+            --bg-mobile-menu-hover: rgba(59, 130, 246, 0.3); /* Lighter blue for hover on dark nav */
+            --bg-theme-toggle-hover: rgba(229, 231, 235, 0.2); /* Lighter gray for hover on dark nav */
+
+
+            --text-primary: #d1d5db; /* gray-300 */
+            --text-secondary: #9ca3af; /* gray-400 */
+            --text-strong: #f3f4f6; /* gray-100 */
+            --text-headings: #60a5fa; /* Light blue */
+            --text-on-accent: #eff6ff;
+            --text-on-accent-secondary: #dbeafe;
+            --text-on-accent-placeholder: #93c5fd;
+            --text-accent-hover: #fde047; /* Brighter yellow */
+
+            --border-primary: #4b5563; /* gray-600 */
+            --border-accent: #3b82f6; /* Lighter blue */
+            --border-input-accent: #3b82f6;
+
+            --shadow-color: rgba(255, 255, 255, 0.05);
+            --shadow-accent-color: rgba(96, 165, 250, 0.4);
+
+            --hero-overlay-color: rgba(29, 78, 216, 0.85); /* Darker blue overlay */
+            --hero-text-color: #eff6ff;
+
+            --btn-primary-bg: #fbbf24; /* amber-400 */
+            --btn-primary-hover-bg: #f59e0b; /* amber-500 */
+            --btn-primary-text: #18181b; /* Darker text for contrast on yellow */
+
+            --btn-secondary-border: #9ca3af; /* gray-400 */
+            --btn-secondary-text: #d1d5db; /* gray-300 */
+            --btn-secondary-hover-bg: #4b5563; /* gray-600 */
+            --btn-secondary-hover-text: #eff6ff;
+
+            --input-bg-accent: #1e3a8a; /* Darker blue for form inputs on accent bg */
+            --input-text-accent: #eff6ff;
+            --input-placeholder-accent: #a5b4fc;
+            --focus-ring-color: #3b82f6; /* Lighter Blue */
+
+            /* Service Card Colors - Dark Theme */
+            --health-checkup-border: #60a5fa; --health-checkup-bg-start: #2c3e50; --health-checkup-bg-end: #374151; --health-checkup-icon: #93c5fd; --health-checkup-heading: #93c5fd; --health-checkup-list-icon: #60a5fa;
+            --vaccinations-border: #818cf8; --vaccinations-bg-start: #312e81; --vaccinations-bg-end: #3730a3; --vaccinations-icon: #a5b4fc; --vaccinations-heading: #a5b4fc; --vaccinations-list-icon: #818cf8;
+            --surgical-border: #a78bfa; --surgical-bg-start: #4c1d95; --surgical-bg-end: #5b21b6; --surgical-icon: #c4b5fd; --surgical-heading: #c4b5fd; --surgical-list-icon: #a78bfa;
+            --grooming-border: #f472b6; --grooming-bg-start: #831843; --grooming-bg-end: #9d174d; --grooming-icon: #fda4af; --grooming-heading: #fda4af; --grooming-list-icon: #f472b6;
+            --deworming-border: #34d399; --deworming-bg-start: #047857; --deworming-bg-end: #065f46; --deworming-icon: #6ee7b7; --deworming-heading: #6ee7b7; --deworming-list-icon: #34d399;
+            --diagnostic-border: #fbbf24; --diagnostic-bg-start: #78350f; --diagnostic-bg-end: #92400e; --diagnostic-icon: #fcd34d; --diagnostic-heading: #fcd34d; --diagnostic-list-icon: #fbbf24;
+            --emergency-border: #f87171; --emergency-bg-start: #7f1d1d; --emergency-bg-end: #991b1b; --emergency-icon: #fca5a5; --emergency-heading: #fca5a5; --emergency-list-icon: #f87171;
+            
+            /* WhatsApp Button Colors are inherited from :root, so they remain consistent */
+        }
+
+        /* Base styles */
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background-color 0.3s ease, color 0.3s ease; /* Added color transition */
+            font-family: 'Inter', sans-serif; /* Added Inter font */
+        }
+        /* Fallback font if Inter is not available */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+
+        nav {
+            background-color: var(--bg-accent);
+            color: var(--text-on-accent);
+        }
+        nav a:hover { color: var(--text-accent-hover); }
+        #mobile-menu a:hover { background-color: var(--bg-mobile-menu-hover); }
+
         .hero {
-            background-image: linear-gradient(rgba(29, 78, 216, 0.85), rgba(29, 78, 216, 0.85)), url('https://images.unsplash.com/photo-1583511655826-05700680d4d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1280&q=80');
+            background-image: linear-gradient(var(--hero-overlay-color), var(--hero-overlay-color)), url('https://images.unsplash.com/photo-1583511655826-05700680d4d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1280&q=80');
             background-size: cover;
             background-position: center;
             transition: background-image 0.3s ease-in-out;
+            color: var(--hero-text-color);
         }
+        .hero a.bg-yellow-400 { background-color: var(--btn-primary-bg); color: var(--btn-primary-text); }
+        .hero a.bg-yellow-400:hover { background-color: var(--btn-primary-hover-bg); }
+        .hero a.border-2 { border-color: var(--btn-secondary-border); color: var(--btn-secondary-text); }
+        .hero a.border-2:hover { background-color: var(--btn-secondary-hover-bg); color: var(--btn-secondary-hover-text); }
         
-        /* Light mode specific service card styles */
-        .service-card-base { transition: all 0.3s ease; }
-        .service-card-base:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 0 15px 0 rgba(59, 130, 246, 0.5); }
+        .service-card-base { 
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px var(--shadow-color), 0 2px 4px -2px var(--shadow-color); /* Tailwind shadow-md equivalent */
+            border-radius: 0.5rem; /* rounded-lg */
+        }
+        .service-card-base:hover { 
+            transform: translateY(-5px) scale(1.02); 
+            box-shadow: 0 10px 25px -5px var(--shadow-color), 0 0 15px 0 var(--shadow-accent-color); 
+        }
 
-        .health-checkup-light { border-left: 4px solid #3b82f6; background: linear-gradient(to right, #f0f9ff, #e0f2fe); }
-        .vaccinations-light { border-left: 4px solid #6366f1; background: linear-gradient(to right, #eef2ff, #e0e7ff); }
-        .surgical-services-light { border-left: 4px solid #8b5cf6; background: linear-gradient(to right, #f5f3ff, #ede9fe); }
-        .grooming-light { border-left: 4px solid #ec4899; background: linear-gradient(to right, #fdf2f8, #fce7f3); }
-        .deworming-light { border-left: 4px solid #10b981; background: linear-gradient(to right, #ecfdf5, #d1fae5); }
-        .diagnostic-center-card-light { border-left: 4px solid #f59e0b; background: linear-gradient(to right, #fffbeb, #fef3c7); }
-        .emergency-light { border-left: 4px solid #ef4444; background: linear-gradient(to right, #fef2f2, #fee2e2); }
+        /* Updated Service Card Styles to use CSS Variables */
+        .health-checkup { border-left: 4px solid var(--health-checkup-border); background: linear-gradient(to right, var(--health-checkup-bg-start), var(--health-checkup-bg-end)); }
+        .health-checkup .main-icon, .health-checkup h3 { color: var(--health-checkup-heading); }
+        .health-checkup ul .fas { color: var(--health-checkup-list-icon); }
+
+        .vaccinations { border-left: 4px solid var(--vaccinations-border); background: linear-gradient(to right, var(--vaccinations-bg-start), var(--vaccinations-bg-end)); }
+        .vaccinations .main-icon, .vaccinations h3 { color: var(--vaccinations-heading); }
+        .vaccinations ul .fas { color: var(--vaccinations-list-icon); }
         
-        .map-container { position: relative; overflow: hidden; padding-top: 56.25%; /* 16:9 Aspect Ratio */ }
+        .surgical-services { border-left: 4px solid var(--surgical-border); background: linear-gradient(to right, var(--surgical-bg-start), var(--surgical-bg-end)); }
+        .surgical-services .main-icon, .surgical-services h3 { color: var(--surgical-heading); }
+        .surgical-services ul .fas { color: var(--surgical-list-icon); }
+
+        .grooming { border-left: 4px solid var(--grooming-border); background: linear-gradient(to right, var(--grooming-bg-start), var(--grooming-bg-end)); }
+        .grooming .main-icon, .grooming h3 { color: var(--grooming-heading); }
+        .grooming ul .fas { color: var(--grooming-list-icon); }
+
+        .deworming { border-left: 4px solid var(--deworming-border); background: linear-gradient(to right, var(--deworming-bg-start), var(--deworming-bg-end)); }
+        .deworming .main-icon, .deworming h3 { color: var(--deworming-heading); }
+        .deworming ul .fas { color: var(--deworming-list-icon); }
+
+        .diagnostic-center-card { border-left: 4px solid var(--diagnostic-border); background: linear-gradient(to right, var(--diagnostic-bg-start), var(--diagnostic-bg-end)); }
+        .diagnostic-center-card .main-icon, .diagnostic-center-card h3 { color: var(--diagnostic-heading); }
+        .diagnostic-center-card ul .fas { color: var(--diagnostic-list-icon); }
+
+        .emergency { border-left: 4px solid var(--emergency-border); background: linear-gradient(to right, var(--emergency-bg-start), var(--emergency-bg-end)); }
+        .emergency .main-icon, .emergency h3 { color: var(--emergency-heading); }
+        .emergency ul .fas { color: var(--emergency-list-icon); }
+
+        /* General text and background colors */
+        #services { background-color: var(--bg-primary); }
+        #services h2, #pricing h2, #contact h2, .faq-section h2, .gallery-section h2 { color: var(--text-headings); }
+        #services .w-24, #pricing .w-24, #contact .w-24, .faq-section .w-24, .gallery-section .w-24 { background-color: var(--bg-accent); }
+        #services p.text-gray-600, #pricing p.text-gray-600, #contact p.text-gray-600, .faq-section p.text-gray-600, .gallery-section p.text-gray-600 { color: var(--text-secondary); }
+        .service-card-base p.text-gray-600 { color: var(--text-secondary); } /* Paragraphs within service cards */
+        
+        #pricing { background-color: var(--bg-tertiary); }
+        #pricing .bg-white { background-color: var(--bg-secondary); border-color: var(--border-primary); border-radius: 0.5rem;} /* Card background */
+        #pricing .border-t-4.border-\[\#0b82b5\] { border-top-color: var(--health-checkup-border); } /* Specific border override example */
+        #pricing .border-t-4.border-indigo-500 { border-top-color: var(--vaccinations-border); }
+        #pricing .border-t-4.border-purple-500 { border-top-color: var(--surgical-border); }
+        #pricing h3.text-\[\#086f9c\] { color: var(--health-checkup-heading); }
+        #pricing h3.text-indigo-700 { color: var(--vaccinations-heading); }
+        #pricing h3.text-purple-700 { color: var(--surgical-heading); }
+        #pricing ul span.text-gray-600 { color: var(--text-secondary); }
+        #pricing ul span.text-gray-800 { color: var(--text-strong); }
+        #pricing .border-b.border-gray-200 { border-bottom-color: var(--border-primary); }
+
+        #pricing .bg-\[\#e0f2f7\] { background-color: var(--bg-accent-light); border-color: var(--border-accent); border-radius: 0.5rem;}
+        #pricing .bg-\[\#e0f2f7\] h3 { color: var(--text-headings); }
+        #pricing .bg-\[\#e0f2f7\] p { color: var(--bg-accent); }
+        #pricing .bg-\[\#e0f2f7\] button { background-color: var(--bg-accent); color: var(--text-on-accent); border-radius: 9999px; }
+        #pricing .bg-\[\#e0f2f7\] button:hover { background-color: var(--bg-accent-darker); }
+        #pricing .bg-\[\#e0f2f7\] button a { color: var(--text-on-accent) !important; } /* ensure text color remains */
+        #pricing .bg-\[\#e0f2f7\] button a:hover { color: var(--text-accent-hover) !important; }
+
+
+        #contact { background-color: var(--bg-secondary); }
+        #contact .bg-\[\#e0f2f7\] { background-color: var(--bg-accent-light); border-radius: 0.5rem;}
+        #contact .bg-\[\#e0f2f7\] h3, #contact .bg-\[\#e0f2f7\] .text-\[\#0b82b5\] { color: var(--text-headings); } /* Icon color */
+        #contact .bg-\[\#e0f2f7\] .text-gray-800 { color: var(--text-strong); }
+        #contact .bg-\[\#e0f2f7\] .text-gray-900 { color: var(--text-primary); }
+        #contact .bg-\[\#e0f2f7\] a.text-\[\#0b82b5\] { color: var(--bg-accent) }
+        #contact .bg-\[\#e0f2f7\] a.text-\[\#0b82b5\]:hover { color: var(--bg-accent-darker) }
+
+
+        #contact .map-container { background-color: var(--bg-primary); border-radius: 0.5rem;}
+        #contact .bg-\[\#0b82b5\] { background-color: var(--bg-accent); color: var(--text-on-accent); border-radius: 0.5rem;}
+        #contact .bg-\[\#0b82b5\] p.text-\[\#e0f2f7\] { color: var(--text-on-accent-secondary); }
+        #contact form input, #contact form select, #contact form textarea {
+            background-color: var(--input-bg-accent);
+            border-color: var(--border-input-accent);
+            color: var(--input-text-accent);
+            border-radius: 0.375rem; /* rounded */
+        }
+        #contact form input::placeholder, #contact form textarea::placeholder { color: var(--input-placeholder-accent); }
+        #contact form button[type="submit"] { background-color: var(--btn-primary-bg); color: var(--btn-primary-text); border-radius: 9999px;}
+        #contact form button[type="submit"]:hover { background-color: var(--btn-primary-hover-bg); }
+        #contact form input:focus, #contact form select:focus, #contact form textarea:focus {
+             box-shadow: 0 0 0 2px var(--focus-ring-color), 0 0 0 2px var(--bg-accent); /* Equivalent to focus:ring-2 focus:ring-yellow-400 and offset */
+        }
+
+
+        .faq-section { background-color: var(--bg-tertiary); } /* Applied class for consistency */
+        .faq-section .collapse-container { background-color: var(--bg-secondary); border-color: var(--border-primary); border-radius: 0.5rem;}
+        .faq-section .collapse-trigger:hover { background-color: var(--bg-primary); }
+        .faq-section .collapse-trigger span { color: var(--text-headings); }
+        .faq-section .collapse-trigger i { color: var(--bg-accent); }
+        .faq-section .collapse-content { color: var(--text-secondary); }
+
+        .testimonials-section { background-color: var(--bg-accent); color: var(--text-on-accent); } /* Applied class */
+        .testimonials-section h2 { color: var(--text-on-accent) !important; } /* Override more specific color */
+        .testimonials-section .w-24 { background-color: var(--text-accent-hover); } /* Yellow line */
+        .testimonials-section p.text-\[\#e0f2f7\] { color: var(--text-on-accent-secondary); }
+        .testimonials-section .bg-\[\#086f9c\] { background-color: var(--bg-accent-darker); border-radius: 0.5rem;}
+        .testimonials-section .text-yellow-400 { color: var(--text-accent-hover); }
+        .testimonials-section .text-white { color: var(--text-on-accent); }
+        .testimonials-section .text-\[\#ccecf5\] { color: var(--text-on-accent-placeholder); } /* For subtitle text like 'Cat Owner' */
+        .testimonials-section .bg-\[\#075985\] { background-color: var(--bg-accent-darker); } /* For avatar icon background */
+        
+
+        .gallery-section { background-color: var(--bg-primary); } /* Applied class */
+        .gallery-item img { border-radius: 0.5rem; } /* Rounded corners for gallery images */
+
+
+        footer.bg-\[\#0b82b5\] { background-color: var(--bg-accent); color: var(--text-on-accent); }
+        footer .text-\[\#e0f2f7\] { color: var(--text-on-accent-secondary); }
+        footer .text-yellow-300 { color: var(--text-accent-hover); }
+        footer .border-t.border-\[\#086f9c\] { border-top-color: var(--bg-accent-darker); }
+        footer .text-\[\#ccecf5\] { color: var(--text-on-accent-placeholder); }
+
+        /* WhatsApp button styles */
+        .floating-btn a.whatsapp-btn { 
+            background-color: var(--whatsapp-bg); 
+            color: var(--whatsapp-text);
+            border-radius: 9999px;
+        }
+        .floating-btn a.whatsapp-btn:hover { 
+            background-color: var(--whatsapp-hover-bg); 
+        }
+
+
+        #back-to-top { background-color: var(--bg-accent); color: var(--text-on-accent); border-radius: 9999px;}
+        #back-to-top:hover { background-color: var(--bg-accent-darker); }
+        
+        .map-container { position: relative; overflow: hidden; padding-top: 56.25%; }
         .map-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
         
         .floating-btn { position: fixed; bottom: 30px; right: 30px; z-index: 50; }
@@ -36,177 +302,157 @@
         @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
         .pulse { animation: pulse 2s infinite; }
 
-        /* Dark Mode Styles */
-        html.dark .hero {
-            background-image: linear-gradient(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.9)), url('https://images.unsplash.com/photo-1583511655826-05700680d4d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1280&q=80');
+        /* Ensure Font Awesome icons inherit color properly or set explicitly if needed */
+        .service-card-base ul .fas, /* For list icons in service cards */
+        .text-\[\#0b82b5\] i /* For icons in contact info if they don't inherit */
+         { 
+            /* color is set by specific service card variables or parent text color */
+         }
+         #theme-toggle {
+            color: var(--text-on-accent); /* Ensure icon is visible on nav */
+            border-radius: 9999px; /* rounded-full */
+         }
+         #theme-toggle:hover {
+            background-color: var(--bg-theme-toggle-hover);
+         }
+         /* Add rounded corners to all major elements */
+        nav, #mobile-menu a, .hero a, section, footer, .collapse-container, .gallery-item, input, select, textarea, button {
+            border-radius: 0.375rem; /* default rounded, can be overridden by more specific (e.g. rounded-full) */
         }
-        html.dark .service-card-base {
-            background-color: #1f2937; /* bg-slate-800 */
-            border-left-width: 4px;
+        /* Override for specific elements that should be fully rounded */
+        .hero a.rounded-full, #pricing button, #contact form button, .floating-btn a, #back-to-top, #theme-toggle {
+            border-radius: 9999px;
         }
-        html.dark .service-card-base:hover {
-             box-shadow: 0 10px 25px -5px rgba(0,0,0,0.4), 0 0 15px 0 rgba(96,165,250,0.3);
+        /* Ensure service cards, pricing cards, contact info card, testimonial cards are rounded */
+        .service-card-base, 
+        #pricing > div > div > div, /* Pricing cards */
+        #contact > div > div > div:first-child, /* Contact info card */
+        .testimonials-section > div > div > div { /* Testimonial cards */
+            border-radius: 0.5rem; /* rounded-lg */
         }
 
-        html.dark .health-checkup-dark { border-left-color: #60a5fa; }
-        html.dark .vaccinations-dark { border-left-color: #818cf8; }
-        html.dark .surgical-services-dark { border-left-color: #a78bfa; }
-        html.dark .grooming-dark { border-left-color: #f472b6; }
-        html.dark .deworming-dark { border-left-color: #34d399; }
-        html.dark .diagnostic-center-card-dark { border-left-color: #fcd34d; }
-        html.dark .emergency-dark { border-left-color: #f87171; }
-
-        /* Text and icon colors for service cards in dark mode */
-        html.dark .service-card-base h3 { color: #93c5fd; } /* Lighter blue for titles */
-        html.dark .service-card-base p, html.dark .service-card-base ul span, html.dark .service-card-base ul li { color: #d1d5db; } /* text-gray-300 */
-        html.dark .service-card-base .main-icon { color: #93c5fd; } /* Default for main icons */
-        html.dark .service-card-base ul .fas { color: #9ca3af; } /* Default for list icons */
-
-        html.dark .health-checkup-dark h3, html.dark .health-checkup-dark .main-icon, html.dark .health-checkup-dark ul .fas { color: #60a5fa; }
-        html.dark .vaccinations-dark h3, html.dark .vaccinations-dark .main-icon, html.dark .vaccinations-dark ul .fas { color: #818cf8; }
-        html.dark .surgical-services-dark h3, html.dark .surgical-services-dark .main-icon, html.dark .surgical-services-dark ul .fas { color: #a78bfa; }
-        html.dark .grooming-dark h3, html.dark .grooming-dark .main-icon, html.dark .grooming-dark ul .fas { color: #f472b6; }
-        html.dark .deworming-dark h3, html.dark .deworming-dark .main-icon, html.dark .deworming-dark ul .fas { color: #34d399; }
-        html.dark .diagnostic-center-card-dark h3, html.dark .diagnostic-center-card-dark .main-icon, html.dark .diagnostic-center-card-dark ul .fas { color: #fcd34d; }
-        html.dark .emergency-dark h3, html.dark .emergency-dark .main-icon, html.dark .emergency-dark ul .fas { color: #f87171; }
 
     </style>
 </head>
-<body class="bg-gray-100 text-gray-700 dark:bg-slate-900 dark:text-gray-300 transition-colors duration-300 font-sans">
-    <!-- Navigation -->
-    <nav class="bg-blue-600 dark:bg-blue-900 text-white shadow-lg sticky top-0 z-40 transition-colors duration-300">
+<body> <!-- Removed bg-gray-100 text-gray-700 transition-colors duration-300, font-sans (added in body style) -->
+    <nav class="shadow-lg sticky top-0 z-40 transition-colors duration-300"> <!-- Removed bg-[#0b82b5] text-white -->
         <div class="container mx-auto px-4 py-3">
             <div class="flex justify-between items-center">
                 <a href="#home" class="flex items-center space-x-2">
-                    <i class="fas fa-paw text-2xl text-yellow-300"></i>
-                    <span class="text-xl sm:text-2xl font-bold">Pet's Care Clinic</span>
+                    <i class="fas fa-paw text-2xl"></i>
+                    <span class="text-xl sm:text-2xl font-bold">Pet's Care Clinic & Diagnostic Centre</span>
                 </a>
                 
                 <div class="hidden md:flex items-center space-x-6">
-                    <a href="#home" class="hover:text-yellow-300 transition">Home</a>
-                    <a href="#services" class="hover:text-yellow-300 transition">Services</a>
-                    <a href="#pricing" class="hover:text-yellow-300 transition">Pricing</a>
-                    <a href="#contact" class="hover:text-yellow-300 transition">Contact</a>
-                    <button id="theme-toggle-desktop" class="p-2 rounded-full hover:bg-blue-500 dark:hover:bg-blue-700 focus:outline-none transition-colors duration-200" aria-label="Toggle theme">
-                        <i class="fas fa-moon text-lg"></i> <!-- JS will set correct icon -->
-                    </button>
+                    <a href="#home" class="transition">Home</a>
+                    <a href="#services" class="transition">Services</a>
+                    <a href="#pricing" class="transition">Pricing</a>
+                    <a href="#contact" class="transition">Contact</a>
                 </div>
 
-                <div class="md:hidden flex items-center">
-                    <button id="theme-toggle-mobile" class="p-2 rounded-full hover:bg-blue-500 dark:hover:bg-blue-700 focus:outline-none mr-2 transition-colors duration-200" aria-label="Toggle theme">
-                        <i class="fas fa-moon text-lg"></i> <!-- JS will set correct icon -->
+                <div class="flex items-center">
+                    <button id="theme-toggle" class="p-2 focus:outline-none" aria-label="Toggle theme"> <!-- Removed rounded-full -->
+                        <i class="fas fa-moon text-xl"></i> <!-- Moon icon for dark theme, Sun for light -->
                     </button>
-                    <button id="mobile-menu-button" class="focus:outline-none p-2" aria-label="Open menu" aria-expanded="false">
-                        <i class="fas fa-bars text-xl"></i>
-                    </button>
+                    <div class="md:hidden flex items-center ml-2">
+                        <button id="mobile-menu-button" class="focus:outline-none p-2" aria-label="Open menu" aria-expanded="false">
+                            <i class="fas fa-bars text-xl"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
             
             <div id="mobile-menu" class="hidden md:hidden py-2">
-                <a href="#home" class="block py-2 px-3 rounded hover:bg-blue-500 dark:hover:bg-blue-700 transition">Home</a>
-                <a href="#services" class="block py-2 px-3 rounded hover:bg-blue-500 dark:hover:bg-blue-700 transition">Services</a>
-                <a href="#pricing" class="block py-2 px-3 rounded hover:bg-blue-500 dark:hover:bg-blue-700 transition">Pricing</a>
-                <a href="#contact" class="block py-2 px-3 rounded hover:bg-blue-500 dark:hover:bg-blue-700 transition">Contact</a>
+                <a href="#home" class="block py-2 px-3 transition">Home</a> <!-- Removed rounded -->
+                <a href="#services" class="block py-2 px-3 transition">Services</a>
+                <a href="#pricing" class="block py-2 px-3 transition">Pricing</a>
+                <a href="#contact" class="block py-2 px-3 transition">Contact</a>
             </div>
         </div>
     </nav>
     
-    <!-- Hero Section -->
-    <section id="home" class="hero text-white py-20 md:py-32">
+    <section id="home" class="hero py-20 md:py-32"> <!-- Removed text-white -->
         <div class="container mx-auto px-4 text-center">
             <h1 class="text-4xl md:text-6xl font-bold mb-6">Your Pet's Health Is Our Top Priority</h1>
             <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">Comprehensive veterinary care with compassion for your beloved pets in Bangladesh.</p>
             <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="#contact" class="bg-yellow-400 hover:bg-yellow-300 text-blue-900 dark:bg-yellow-500 dark:hover:bg-yellow-400 dark:text-gray-900 font-bold py-3 px-6 rounded-full transition transform hover:scale-105 shadow-lg">Book Appointment</a>
-                <a href="#services" class="border-2 border-white text-white font-bold py-3 px-6 rounded-full hover:bg-white hover:text-blue-700 dark:hover:text-blue-800 transition transform hover:scale-105">Our Services</a>
+                <a href="#contact" class="bg-yellow-400 font-bold py-3 px-6 transition transform hover:scale-105 shadow-lg rounded-full">Book Appointment</a> <!-- text color handled by variable, added rounded-full -->
+                <a href="#services" class="border-2 font-bold py-3 px-6 transition transform hover:scale-105 rounded-full">Our Services</a> <!-- text color handled by variable, added rounded-full -->
             </div>
         </div>
     </section>
     
-    <!-- Services Section -->
-    <section id="services" class="py-16 bg-gray-100 dark:bg-slate-800 transition-colors duration-300">
+    <section id="services" class="py-16 transition-colors duration-300"> <!-- Removed bg-gray-100 -->
         <div class="container mx-auto px-4">
             <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-blue-700 dark:text-blue-400 mb-4">Our Services</h2>
-                <div class="w-24 h-1 bg-blue-600 dark:bg-blue-500 mx-auto"></div>
-                <p class="mt-6 text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">We offer a comprehensive range of veterinary services to keep your pets healthy and happy.</p>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Our Services</h2> <!-- text color from variable -->
+                <div class="w-24 h-1 mx-auto"></div> <!-- bg color from variable -->
+                <p class="mt-6 max-w-3xl mx-auto">We offer a comprehensive range of veterinary services to keep your pets healthy and happy.</p> <!-- text color from variable -->
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Health Checkup -->
-                <div class="service-card-base health-checkup-light dark:health-checkup-dark p-6 rounded-lg shadow-md">
-                    <div class="mb-4"><i class="fas fa-heartbeat text-4xl text-blue-600 main-icon"></i></div>
-                    <h3 class="text-xl font-bold mb-3 text-blue-900">Health Checkup</h3>
-                    <p class="text-gray-600 mb-4 text-sm">Regular health examinations for cats, dogs, and birds to detect potential health issues early.</p>
+                <!-- Service card classes changed from -light to direct name, removed rounded-lg shadow-md (handled by service-card-base) -->
+                <div class="service-card-base health-checkup p-6">
+                    <div class="mb-4"><i class="fas fa-heartbeat text-4xl main-icon"></i></div>
+                    <h3 class="text-xl font-bold mb-3">Health Checkup</h3>
+                    <p class="mb-4 text-sm">Regular health examinations for cats, dogs, and birds to detect potential health issues early.</p>
                     <ul class="space-y-2 text-sm">
                         <li class="flex items-center"><i class="fas fa-cat mr-2"></i><span>Cats: 600 BDT</span></li>
                         <li class="flex items-center"><i class="fas fa-dog mr-2"></i><span>Dogs: 600 BDT</span></li>
                         <li class="flex items-center"><i class="fas fa-dove mr-2"></i><span>Birds: 350 BDT</span></li>
                     </ul>
                 </div>
-                
-                <!-- Vaccinations -->
-                <div class="service-card-base vaccinations-light dark:vaccinations-dark p-6 rounded-lg shadow-md">
-                    <div class="mb-4"><i class="fas fa-syringe text-4xl text-indigo-600 main-icon"></i></div>
-                    <h3 class="text-xl font-bold mb-3 text-indigo-900">Vaccinations</h3>
-                    <p class="text-gray-600 mb-4 text-sm">Protect your pets from serious diseases with our vaccination services.</p>
+                <div class="service-card-base vaccinations p-6">
+                    <div class="mb-4"><i class="fas fa-syringe text-4xl main-icon"></i></div> <!-- Removed text-indigo-600 -->
+                    <h3 class="text-xl font-bold mb-3">Vaccinations</h3> <!-- Removed text-indigo-700 -->
+                    <p class="mb-4 text-sm">Protect your pets from serious diseases with our vaccination services.</p>
                     <ul class="space-y-2 text-sm">
-                        <li class="flex items-center"><i class="fas fa-cat mr-2"></i><span>Cat Flu Vaccine: 1500 BDT</span></li>
-                        <li class="flex items-center"><i class="fas fa-dog mr-2"></i><span>Dog Parvo Vaccine: 1500 BDT</span></li>
+                        <li class="flex items-center"><i class="fas fa-cat mr-2"></i><span>Cat Flu Vaccine: 1500 BDT</span></li> <!-- Removed text-indigo-500 -->
+                        <li class="flex items-center"><i class="fas fa-dog mr-2"></i><span>Dog Parvo Vaccine: 1500 BDT</span></li> <!-- Removed text-indigo-500 -->
                     </ul>
                 </div>
-                
-                <!-- Surgical Services -->
-                <div class="service-card-base surgical-services-light dark:surgical-services-dark p-6 rounded-lg shadow-md">
-                    <div class="mb-4"><i class="fas fa-procedures text-4xl text-purple-600 main-icon"></i></div>
-                    <h3 class="text-xl font-bold mb-3 text-purple-900">Surgical Services</h3>
-                    <p class="text-gray-600 mb-4 text-sm">Professional surgical procedures performed by our experienced veterinarians.</p>
+                <div class="service-card-base surgical-services p-6">
+                    <div class="mb-4"><i class="fas fa-procedures text-4xl main-icon"></i></div>
+                    <h3 class="text-xl font-bold mb-3">Surgical Services</h3>
+                    <p class="mb-4 text-sm">Professional surgical procedures performed by our experienced veterinarians.</p>
                     <ul class="space-y-2 text-sm">
                         <li class="flex items-center"><i class="fas fa-male mr-2"></i><span>Neuter (Male): 2000 BDT</span></li>
                         <li class="flex items-center"><i class="fas fa-female mr-2"></i><span>Spay (Female): 3500 BDT</span></li>
                     </ul>
                 </div>
-                
-                <!-- Grooming -->
-                <div class="service-card-base grooming-light dark:grooming-dark p-6 rounded-lg shadow-md">
-                    <div class="mb-4"><i class="fas fa-spa text-4xl text-pink-600 main-icon"></i></div>
-                    <h3 class="text-xl font-bold mb-3 text-pink-900">Grooming Services</h3>
-                    <p class="text-gray-600 mb-4 text-sm">Keep your pet looking and feeling their best with our professional grooming services.</p>
+                <div class="service-card-base grooming p-6">
+                    <div class="mb-4"><i class="fas fa-spa text-4xl main-icon"></i></div>
+                    <h3 class="text-xl font-bold mb-3">Grooming Services</h3>
+                    <p class="mb-4 text-sm">Keep your pet looking and feeling their best with our professional grooming services.</p>
                     <ul class="space-y-2 text-sm">
                         <li class="flex items-center"><i class="fas fa-cut mr-2"></i><span>Haircut & Styling</span></li>
                         <li class="flex items-center"><i class="fas fa-bath mr-2"></i><span>Bath & Brush</span></li>
                         <li class="flex items-center"><i class="fas fa-tooth mr-2"></i><span>Teeth Cleaning</span></li>
                     </ul>
                 </div>
-                
-                <!-- De-worming -->
-                <div class="service-card-base deworming-light dark:deworming-dark p-6 rounded-lg shadow-md">
-                    <div class="mb-4"><i class="fas fa-pills text-4xl text-emerald-600 main-icon"></i></div>
-                    <h3 class="text-xl font-bold mb-3 text-emerald-900">De-worming Services</h3>
-                    <p class="text-gray-600 mb-4 text-sm">Complete de-worming treatment with medication, feeding and medical certificate included.</p>
+                <div class="service-card-base deworming p-6">
+                    <div class="mb-4"><i class="fas fa-pills text-4xl main-icon"></i></div>
+                    <h3 class="text-xl font-bold mb-3">De-worming Services</h3>
+                    <p class="mb-4 text-sm">Complete de-worming treatment with medication, feeding and medical certificate included.</p>
                     <ul class="space-y-2 text-sm">
                         <li class="flex items-center"><i class="fas fa-syringe mr-2"></i><span>Full De-worming Package: 350 BDT</span></li>
                         <li class="flex items-center"><i class="fas fa-pills mr-2"></i><span>Medicine Only: 100 BDT</span></li>
                     </ul>
                 </div>
-
-                <!-- Diagnostic Center -->
-                <div class="service-card-base diagnostic-center-card-light dark:diagnostic-center-card-dark p-6 rounded-lg shadow-md">
-                    <div class="mb-4"><i class="fas fa-microscope text-4xl text-amber-600 main-icon"></i></div>
-                    <h3 class="text-xl font-bold mb-3 text-amber-900">Diagnostic Center</h3>
-                    <p class="text-gray-600 mb-4 text-sm">Advanced diagnostic tools to accurately identify your pet's health conditions.</p>
+                <div class="service-card-base diagnostic-center-card p-6">
+                    <div class="mb-4"><i class="fas fa-microscope text-4xl main-icon"></i></div>
+                    <h3 class="text-xl font-bold mb-3">Diagnostic Center</h3>
+                    <p class="mb-4 text-sm">Advanced diagnostic tools to accurately identify your pet's health conditions.</p>
                     <ul class="space-y-2 text-sm">
                         <li class="flex items-center"><i class="fas fa-vial mr-2"></i><span>Blood Tests</span></li>
                         <li class="flex items-center"><i class="fas fa-x-ray mr-2"></i><span>X-Ray Imaging</span></li>
                         <li class="flex items-center"><i class="fas fa-utensils mr-2"></i><span>Nutritional Consultation</span></li>
                     </ul>
                 </div>
-                
-                <!-- Emergency -->
-                <div class="service-card-base emergency-light dark:emergency-dark p-6 rounded-lg shadow-md">
-                    <div class="mb-4"><i class="fas fa-ambulance text-4xl text-red-600 main-icon"></i></div>
-                    <h3 class="text-xl font-bold mb-3 text-red-900">Emergency Care</h3>
-                    <p class="text-gray-600 mb-4 text-sm">24/7 emergency services available for urgent veterinary needs.</p>
+                <div class="service-card-base emergency p-6 col-span-1 md:col-span-2 lg:col-span-1 lg:col-start-2">
+                    <div class="mb-4"><i class="fas fa-ambulance text-4xl main-icon"></i></div>
+                    <h3 class="text-xl font-bold mb-3">Emergency Care</h3>
+                    <p class="mb-4 text-sm">24/7 emergency services available for urgent veterinary needs.</p>
                     <ul class="space-y-2 text-sm">
                         <li class="flex items-center"><i class="fas fa-phone mr-2"></i><span>01999-727389</span></li>
                         <li class="flex items-center"><i class="fas fa-clock mr-2"></i><span>Available 24/7</span></li>
@@ -216,103 +462,91 @@
         </div>
     </section>
     
-    <!-- Pricing Section -->
-    <section id="pricing" class="py-16 bg-gray-50 dark:bg-slate-850 transition-colors duration-300">
+    <section id="pricing" class="py-16 transition-colors duration-300"> <!-- Removed bg-gray-50 -->
         <div class="container mx-auto px-4">
             <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-blue-700 dark:text-blue-400 mb-4">Service Pricing</h2>
-                <div class="w-24 h-1 bg-blue-600 dark:bg-blue-500 mx-auto"></div>
-                <p class="mt-6 text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">Transparent pricing for all our veterinary services</p>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Service Pricing</h2>
+                <div class="w-24 h-1 mx-auto"></div>
+                <p class="mt-6 max-w-3xl mx-auto">Transparent pricing for all our veterinary services</p>
             </div>
             
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="bg-white dark:bg-slate-800 p-6 rounded-lg shadow-md border-t-4 border-blue-600 dark:border-blue-500 transition-colors duration-300">
-                    <h3 class="text-xl font-bold mb-4 text-blue-800 dark:text-blue-300">Health Checkups</h3>
+                <div class="p-6 shadow-md border-t-4 border-[#0b82b5] transition-colors duration-300"> <!-- bg-white removed, rounded-lg handled by CSS -->
+                    <h3 class="text-xl font-bold mb-4 text-[#086f9c]">Health Checkups</h3>
                     <ul class="space-y-3">
-                        <li class="flex justify-between py-2 border-b border-gray-200 dark:border-slate-700"><span class="text-gray-600 dark:text-gray-400">Cat Checkup</span><span class="font-bold text-gray-800 dark:text-gray-200">600 BDT</span></li>
-                        <li class="flex justify-between py-2 border-b border-gray-200 dark:border-slate-700"><span class="text-gray-600 dark:text-gray-400">Dog Checkup</span><span class="font-bold text-gray-800 dark:text-gray-200">600 BDT</span></li>
-                        <li class="flex justify-between py-2 border-b border-gray-200 dark:border-slate-700"><span class="text-gray-600 dark:text-gray-400">Bird Checkup</span><span class="font-bold text-gray-800 dark:text-gray-200">350 BDT</span></li>
-                        <li class="flex justify-between py-2 border-b border-gray-200 dark:border-slate-700"><span class="text-gray-600 dark:text-gray-400">Full De-worming Package</span><span class="font-bold text-gray-800 dark:text-gray-200">350 BDT</span></li>
-                        <li class="flex justify-between py-2 border-b border-gray-200 dark:border-slate-700"><span class="text-gray-600 dark:text-gray-400">De-worming Medicine Only</span><span class="font-bold text-gray-800 dark:text-gray-200">100 BDT</span></li>
+                        <li class="flex justify-between py-2 border-b"><span class="text-gray-600">Cat Checkup</span><span class="font-bold text-gray-800">600 BDT</span></li>
+                        <li class="flex justify-between py-2 border-b"><span class="text-gray-600">Dog Checkup</span><span class="font-bold text-gray-800">600 BDT</span></li>
+                        <li class="flex justify-between py-2 border-b"><span class="text-gray-600">Bird Checkup</span><span class="font-bold text-gray-800">350 BDT</span></li>
+                        <li class="flex justify-between py-2 border-b"><span class="text-gray-600">Full De-worming Package</span><span class="font-bold text-gray-800">350 BDT</span></li>
+                        <li class="flex justify-between py-2 border-b"><span class="text-gray-600">De-worming Medicine Only</span><span class="font-bold text-gray-800">100 BDT</span></li>
                     </ul>
                 </div>
-                <div class="bg-white dark:bg-slate-800 p-6 rounded-lg shadow-md border-t-4 border-indigo-600 dark:border-indigo-500 transition-colors duration-300">
-                    <h3 class="text-xl font-bold mb-4 text-indigo-800 dark:text-indigo-300">Vaccinations</h3>
+                <div class="p-6 shadow-md border-t-4 border-indigo-500 transition-colors duration-300"> <!-- bg-white removed -->
+                    <h3 class="text-xl font-bold mb-4 text-indigo-700">Vaccinations</h3>
                     <ul class="space-y-3">
-                        <li class="flex justify-between py-2 border-b border-gray-200 dark:border-slate-700"><span class="text-gray-600 dark:text-gray-400">Cat Flu Vaccine</span><span class="font-bold text-gray-800 dark:text-gray-200">1500 BDT</span></li>
-                        <li class="flex justify-between py-2 border-b border-gray-200 dark:border-slate-700"><span class="text-gray-600 dark:text-gray-400">Dog Parvo Vaccine</span><span class="font-bold text-gray-800 dark:text-gray-200">1500 BDT</span></li>
-                        <li class="flex justify-between py-2 border-b border-gray-200 dark:border-slate-700"><span class="text-gray-600 dark:text-gray-400">Other Vaccines</span><span class="font-bold text-gray-800 dark:text-gray-200">Ask for price</span></li>
+                        <li class="flex justify-between py-2 border-b"><span class="text-gray-600">Cat Flu Vaccine</span><span class="font-bold text-gray-800">1500 BDT</span></li>
+                        <li class="flex justify-between py-2 border-b"><span class="text-gray-600">Dog Parvo Vaccine</span><span class="font-bold text-gray-800">1500 BDT</span></li>
+                        <li class="flex justify-between py-2 border-b"><span class="text-gray-600">Rabies Vaccine</span><span class="font-bold text-gray-800">350 BDT</span></li>
+                        <li class="flex justify-between py-2 border-b"><span class="text-gray-600">Other Vaccines</span><span class="font-bold text-gray-800">Ask for price</span></li>
                     </ul>
                 </div>
-                <div class="bg-white dark:bg-slate-800 p-6 rounded-lg shadow-md border-t-4 border-purple-600 dark:border-purple-500 transition-colors duration-300">
-                    <h3 class="text-xl font-bold mb-4 text-purple-800 dark:text-purple-300">Surgical Services</h3>
+                <div class="p-6 shadow-md border-t-4 border-purple-500 transition-colors duration-300"> <!-- bg-white removed -->
+                    <h3 class="text-xl font-bold mb-4 text-purple-700">Surgical Services</h3>
                     <ul class="space-y-3">
-                        <li class="flex justify-between py-2 border-b border-gray-200 dark:border-slate-700"><span class="text-gray-600 dark:text-gray-400">Neuter (Male)</span><span class="font-bold text-gray-800 dark:text-gray-200">2000 BDT</span></li>
-                        <li class="flex justify-between py-2 border-b border-gray-200 dark:border-slate-700"><span class="text-gray-600 dark:text-gray-400">Spay (Female)</span><span class="font-bold text-gray-800 dark:text-gray-200">3500 BDT</span></li>
-                        <li class="flex justify-between py-2 border-b border-gray-200 dark:border-slate-700"><span class="text-gray-600 dark:text-gray-400">Other Surgeries</span><span class="font-bold text-gray-800 dark:text-gray-200">Ask for price</span></li>
+                        <li class="flex justify-between py-2 border-b"><span class="text-gray-600">Neuter (Male)</span><span class="font-bold text-gray-800">2000 BDT</span></li>
+                        <li class="flex justify-between py-2 border-b"><span class="text-gray-600">Spay (Female)</span><span class="font-bold text-gray-800">3500 BDT</span></li>
+                        <li class="flex justify-between py-2 border-b"><span class="text-gray-600">Other Surgeries</span><span class="font-bold text-gray-800">Ask for price</span></li>
                     </ul>
                 </div>
             </div>
             
-            <div class="bg-blue-50 dark:bg-blue-900/50 rounded-lg p-6 mt-8 max-w-4xl mx-auto text-center border border-blue-200 dark:border-blue-700 transition-colors duration-300">
-                <h3 class="text-xl font-bold mb-2 text-blue-800 dark:text-blue-300">Special Offers</h3>
-                <p class="text-blue-700 dark:text-blue-400 mb-4">We offer package deals and discounts for multiple pets or recurring services.</p>
-                <button class="bg-blue-600 hover:bg-blue-700 text-white dark:bg-blue-500 dark:hover:bg-blue-600 py-2 px-6 rounded-full transition">Ask about Discounts</button>
+            <div class="bg-[#e0f2f7] p-6 mt-8 max-w-4xl mx-auto text-center border border-[#0e9ad1] transition-colors duration-300"> <!-- rounded-lg handled by CSS -->
+                <h3 class="text-xl font-bold mb-2 text-[#086f9c]">Special Offers</h3>
+                <p class="text-[#0b82b5] mb-4">We offer package deals and discounts for multiple pets or recurring services.</p>
+                <button class="hover:bg-[#086f9c] py-2 px-6 transition"><a href="tel:01999727389">Ask about Discounts</a></button> <!-- bg, text color, rounded-full from variables/CSS -->
             </div>
         </div>
     </section>
     
-    <!-- Contact Section -->
-    <section id="contact" class="py-16 bg-white dark:bg-slate-800 transition-colors duration-300">
+    <section id="contact" class="py-16 transition-colors duration-300"> <!-- Removed bg-white -->
         <div class="container mx-auto px-4">
             <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-blue-700 dark:text-blue-400 mb-4">Contact Us</h2>
-                <div class="w-24 h-1 bg-blue-600 dark:bg-blue-500 mx-auto"></div>
-                <p class="mt-6 text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">Get in touch to schedule an appointment or ask any questions about your pet's health</p>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Contact Us</h2>
+                <div class="w-24 h-1 mx-auto"></div>
+                <p class="mt-6 max-w-3xl mx-auto">Get in touch to schedule an appointment or ask any questions about your pet's health</p>
             </div>
             
             <div class="grid md:grid-cols-2 gap-8">
-                <div class="bg-gray-50 dark:bg-slate-700 p-6 rounded-lg shadow-md transition-colors duration-300">
-                    <h3 class="text-2xl font-bold mb-6 text-blue-800 dark:text-blue-300">Contact Information</h3>
+                <div class="bg-[#e0f2f7] p-6 shadow-md transition-colors duration-300"> <!-- rounded-lg handled by CSS -->
+                    <h3 class="text-2xl font-bold mb-6 text-[#086f9c]">Contact Information</h3>
                     <div class="space-y-6">
-                        <div class="flex items-start"><div class="text-blue-600 dark:text-blue-400 mr-4 mt-1"><i class="fas fa-phone-alt text-xl"></i></div><div><h4 class="font-bold text-gray-800 dark:text-gray-200">Phone</h4><p class="text-gray-600 dark:text-gray-400">01999-727389 (Emergency available)</p></div></div>
-                        <div class="flex items-start"><div class="text-blue-600 dark:text-blue-400 mr-4 mt-1"><i class="fas fa-map-marker-alt text-xl"></i></div><div><h4 class="font-bold text-gray-800 dark:text-gray-200">Location</h4><p class="text-gray-600 dark:text-gray-400">ইয়াকুবিয়া গার্লস স্কুল এর ঠিক বিপরীত প্বার্শে, Cafe Bar-B-Q এর দ্বিতীয় তলা, Pet's Care Clinic & Diagnostic Centre</p></div></div>
-                        <div class="flex items-start"><div class="text-blue-600 dark:text-blue-400 mr-4 mt-1"><i class="fab fa-facebook-f text-xl"></i></div><div><h4 class="font-bold text-gray-800 dark:text-gray-200">Facebook</h4><a href="https://www.facebook.com/profile.php?id=61565348671946" class="text-blue-600 dark:text-blue-400 hover:underline" target="_blank">Pet's Care Clinic & Diagnostic Centre</a></div></div>
-                        <div class="flex items-start"><div class="text-blue-600 dark:text-blue-400 mr-4 mt-1"><i class="fas fa-clock text-xl"></i></div><div><h4 class="font-bold text-gray-800 dark:text-gray-200">Hours</h4><p class="text-gray-600 dark:text-gray-400">Monday - Saturday: 9:00 AM - 8:00 PM<br>Sunday: 10:00 AM - 6:00 PM<br>Emergency Services: 24/7</p></div></div>
+                        <div class="flex items-start"><div class="text-[#0b82b5] mr-4 mt-1"><i class="fas fa-phone-alt text-xl"></i></div><div><h4 class="font-bold text-gray-800">Phone</h4><a href="tel:01999727389" class="text-gray-900 hover:text-blue-300">01999-727389</a></div></div>
+                        <div class="flex items-start"><div class="text-[#0b82b5] mr-4 mt-1"><i class="fas fa-map-marker-alt text-xl"></i></div><div><h4 class="font-bold text-gray-800">Location</h4><p class="text-gray-900">ইয়াকুবিয়া গার্লস স্কুল এর ঠিক বিপরীত পাশে, Cafe Bar-B-Q এর দ্বিতীয় তলা, Pet's Care Clinic & Diagnostic Centre</p></div></div>
+                        <div class="flex items-start"><div class="text-[#0b82b5] mr-4 mt-1"><i class="fab fa-facebook-f text-xl"></i></div><div><h4 class="font-bold text-gray-800">Facebook</h4><a href="https://www.facebook.com/profile.php?id=61565348671946" class="text-[#0b82b5] hover:underline" target="_blank">Pet's Care Clinic & Diagnostic Centre</a></div></div>
+                        <div class="flex items-start"><div class="text-[#0b82b5] mr-4 mt-1"><i class="fas fa-clock text-xl"></i></div><div><h4 class="font-bold text-gray-800">Hours</h4><p class="text-gray-900">Monday - Saturday: 9:00 AM - 8:00 PM<br>Sunday: 10:00 AM - 6:00 PM<br>Emergency Services: 24/7</p></div></div>
                     </div>
                 </div>
                 
                 <div>
-                    <h3 class="text-2xl font-bold mb-6 text-blue-800 dark:text-blue-300">Our Location</h3>
-                     <!-- 
-                        IMPORTANT: REPLACE THE ENTIRE 'src' VALUE BELOW WITH THE EMBED URL FROM GOOGLE MAPS FOR YOUR CLINIC.
-                        To get it:
-                        1. Go to Google Maps (maps.google.com).
-                        2. Search for your clinic's address.
-                        3. Click the "Share" button on the clinic's information panel.
-                        4. Select the "Embed a map" tab.
-                        5. Copy the HTML code (it starts with <iframe src="...").
-                        6. Paste ONLY the URL part from the src="..." attribute into the src below.
-                        Example of what to copy from Google: src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d[...rest of the URL...]"
-                    -->
-                    <div class="map-container bg-gray-100 dark:bg-slate-700 rounded-lg overflow-hidden shadow-md transition-colors duration-300">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3097.2718081862877!2d89.37083857455403!3d24.84488144588226!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39fc5518fee13ef7%3A0x96c53355c59d083a!2sPet&#39;s%20Care%20Clinic%20%26%20Diagnostic%20Centre!5e1!3m2!1sen!2sbd!4v1748971772264!5m2!1sen!2sbd" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <h3 class="text-2xl font-bold mb-6 text-[#086f9c]">Our Location</h3>
+                    <div class="map-container overflow-hidden shadow-md transition-colors duration-300"> <!-- Removed bg-gray-100, rounded-lg handled by CSS -->
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12389.087717905491!2d89.35538905541992!3d24.84487660000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39fc5518fee13ef7%3A0x96c53355c59d083a!2sPet&#39;s%20Care%20Clinic%20%26%20Diagnostic%20Centre!5e1!3m2!1sen!2sus!4v1749041471993!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
             </div>
             
-            <div class="mt-12 bg-blue-700 dark:bg-blue-900 text-white p-8 rounded-lg shadow-lg transition-colors duration-300">
+             <div class="mt-12 text-white p-8 shadow-lg transition-colors duration-300"> <!-- Removed bg-[#0b82b5], rounded-lg handled by CSS -->
                 <div class="max-w-4xl mx-auto">
                     <h3 class="text-2xl font-bold mb-4">Book an Appointment</h3>
-                    <p class="mb-6 text-blue-100 dark:text-blue-200">Fill out the form below to schedule an appointment for your pet</p>
+                    <p class="mb-6">Fill out the form below to schedule an appointment for your pet</p> <!-- Removed text-[#e0f2f7] -->
                     
                     <form id="appointmentForm" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div><label for="name" class="block mb-2">Your Name</label><input type="text" id="name" name="name" class="w-full px-4 py-2 rounded bg-blue-600 dark:bg-blue-800 border border-blue-500 dark:border-blue-700 focus:outline-none focus:ring-2 focus:ring-yellow-400 text-white placeholder-blue-200 dark:placeholder-blue-300" required></div>
-                        <div><label for="phone" class="block mb-2">Phone Number</label><input type="tel" id="phone" name="phone" class="w-full px-4 py-2 rounded bg-blue-600 dark:bg-blue-800 border border-blue-500 dark:border-blue-700 focus:outline-none focus:ring-2 focus:ring-yellow-400 text-white placeholder-blue-200 dark:placeholder-blue-300" required></div>
-                        <div class="md:col-span-2"><label for="pet" class="block mb-2">Pet Type</label><select id="pet" name="pet" class="w-full px-4 py-2 rounded bg-blue-600 dark:bg-blue-800 border border-blue-500 dark:border-blue-700 focus:outline-none focus:ring-2 focus:ring-yellow-400 text-white" required><option value="" disabled selected>Select pet type</option><option value="cat">Cat</option><option value="dog">Dog</option><option value="bird">Bird</option><option value="other">Other</option></select></div>
-                        <div class="md:col-span-2"><label for="service" class="block mb-2">Service Needed</label><select id="service" name="service" class="w-full px-4 py-2 rounded bg-blue-600 dark:bg-blue-800 border border-blue-500 dark:border-blue-700 focus:outline-none focus:ring-2 focus:ring-yellow-400 text-white" required><option value="" disabled selected>Select service</option><option value="checkup">Health Checkup</option><option value="vaccine">Vaccination</option><option value="surgery">Surgical Service</option><option value="grooming">Grooming</option><option value="emergency">Emergency</option><option value="other">Other</option></select></div>
-                        <div class="md:col-span-2"><label for="message" class="block mb-2">Message (Optional)</label><textarea id="message" name="message" rows="4" class="w-full px-4 py-2 rounded bg-blue-600 dark:bg-blue-800 border border-blue-500 dark:border-blue-700 focus:outline-none focus:ring-2 focus:ring-yellow-400 text-white placeholder-blue-200 dark:placeholder-blue-300"></textarea></div>
-                        <div class="md:col-span-2"><button type="submit" class="bg-yellow-400 hover:bg-yellow-300 text-blue-900 dark:bg-yellow-500 dark:hover:bg-yellow-400 dark:text-gray-900 font-bold py-3 px-8 rounded-full transition transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-yellow-500 dark:focus:ring-yellow-300 focus:ring-offset-2 focus:ring-offset-blue-700 dark:focus:ring-offset-blue-900">Submit Appointment Request</button></div>
+                        <div><label for="name" class="block mb-2">Your Name</label><input type="text" id="name" name="name" class="w-full px-4 py-2 border focus:outline-none focus:ring-2 text-white" required></div> <!-- bg, border, placeholder, rounded color from variables/CSS -->
+                        <div><label for="phone" class="block mb-2">Phone Number</label><input type="tel" id="phone" name="phone" class="w-full px-4 py-2 border focus:outline-none focus:ring-2 text-white" required></div>
+                        <div class="md:col-span-2"><label for="pet" class="block mb-2">Pet Type</label><select id="pet" name="pet" class="w-full px-4 py-2 border focus:outline-none focus:ring-2 text-white" required><option value="" disabled selected>Select pet type</option><option value="cat">Cat</option><option value="dog">Dog</option><option value="bird">Bird</option><option value="other">Other</option></select></div>
+                        <div class="md:col-span-2"><label for="service" class="block mb-2">Service Needed</label><select id="service" name="service" class="w-full px-4 py-2 border focus:outline-none focus:ring-2 text-white" required><option value="" disabled selected>Select service</option><option value="checkup">Health Checkup</option><option value="vaccine">Vaccination</option><option value="surgery">Surgical Service</option><option value="grooming">Grooming</option><option value="emergency">Emergency</option><option value="other">Other</option></select></div>
+                        <div class="md:col-span-2"><label for="message" class="block mb-2">Message (Optional)</label><textarea id="message" name="message" rows="4" class="w-full px-4 py-2 border focus:outline-none focus:ring-2 text-white"></textarea></div>
+                        <div class="md:col-span-2"><button type="submit" class="font-bold py-3 px-8 transition transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2">Submit Appointment Request</button></div> <!-- bg, text, focus offset, rounded-full color from variables/CSS -->
                     </form>
                     <div id="form-submission-message" class="mt-4 text-center"></div>
                 </div>
@@ -320,142 +554,135 @@
         </div>
     </section>
     
-    <!-- FAQ Section -->
-    <section class="py-16 bg-gray-50 dark:bg-slate-850 transition-colors duration-300">
+    <section class="py-16 transition-colors duration-300 faq-section"> <!-- Removed bg-gray-50 -->
         <div class="container mx-auto px-4">
             <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-blue-700 dark:text-blue-400 mb-4">Frequently Asked Questions</h2>
-                <div class="w-24 h-1 bg-blue-600 dark:bg-blue-500 mx-auto"></div>
-                <p class="mt-6 text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">Common questions about our veterinary services</p>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Frequently Asked Questions</h2>
+                <div class="w-24 h-1 mx-auto"></div>
+                <p class="mt-6 max-w-3xl mx-auto">Common questions about our veterinary services</p>
             </div>
-            
             <div class="max-w-3xl mx-auto space-y-4">
-                <div class="collapse-container border border-gray-200 dark:border-slate-700 rounded-lg overflow-hidden bg-white dark:bg-slate-800 transition-colors duration-300">
-                    <button class="collapse-trigger flex justify-between items-center w-full p-6 text-left hover:bg-gray-100 dark:hover:bg-slate-700/50 transition">
-                        <span class="text-lg font-medium text-blue-800 dark:text-blue-300">How often should my pet have a health checkup?</span>
-                        <i class="fas fa-chevron-down text-blue-600 dark:text-blue-400 transition-transform duration-200"></i>
+                <div class="collapse-container border overflow-hidden transition-colors duration-300"> <!-- bg, border, rounded-lg color from variables/CSS -->
+                    <button class="collapse-trigger flex justify-between items-center w-full p-6 text-left transition"> <!-- hover bg from variables -->
+                        <span class="text-lg font-medium">How often should my pet have a health checkup?</span> <!-- text color from variables -->
+                        <i class="fas fa-chevron-down transition-transform duration-200"></i> <!-- icon color from variables -->
                     </button>
-                    <div class="collapse-content px-6 pb-6 pt-0 hidden text-gray-600 dark:text-gray-400"><p class="mt-2">We recommend annual health checkups for young, healthy pets. Senior pets (7+ years) or pets with health conditions may need checkups every 6 months. Regular checkups help detect potential health issues early when they are most treatable.</p></div>
+                    <div class="collapse-content px-6 pb-6 pt-0 hidden"><p class="mt-2">We recommend annual health checkups for young, healthy pets. Senior pets (7+ years) or pets with health conditions may need checkups every 6 months. Regular checkups help detect potential health issues early when they are most treatable.</p></div> <!-- text color from variables -->
                 </div>
-                <div class="collapse-container border border-gray-200 dark:border-slate-700 rounded-lg overflow-hidden bg-white dark:bg-slate-800 transition-colors duration-300">
-                    <button class="collapse-trigger flex justify-between items-center w-full p-6 text-left hover:bg-gray-100 dark:hover:bg-slate-700/50 transition">
-                        <span class="text-lg font-medium text-blue-800 dark:text-blue-300">What vaccinations does my pet need?</span>
-                        <i class="fas fa-chevron-down text-blue-600 dark:text-blue-400 transition-transform duration-200"></i>
+                <div class="collapse-container border overflow-hidden transition-colors duration-300">
+                    <button class="collapse-trigger flex justify-between items-center w-full p-6 text-left transition">
+                        <span class="text-lg font-medium">What vaccinations does my pet need?</span>
+                        <i class="fas fa-chevron-down transition-transform duration-200"></i>
                     </button>
-                    <div class="collapse-content px-6 pb-6 pt-0 hidden text-gray-600 dark:text-gray-400"><p class="mt-2">Vaccination requirements vary by species, age, and lifestyle. Core vaccines for cats include rabies and feline distemper. Dogs typically need rabies, distemper, parvovirus, and adenovirus vaccines. Our veterinarians will create a customized vaccination schedule based on your pet's specific needs.</p></div>
+                    <div class="collapse-content px-6 pb-6 pt-0 hidden"><p class="mt-2">Vaccination requirements vary by species, age, and lifestyle. Core vaccines for cats include rabies and feline distemper. Dogs typically need rabies, distemper, parvovirus, and adenovirus vaccines. Our veterinarians will create a customized vaccination schedule based on your pet's specific needs.</p></div>
                 </div>
-                <div class="collapse-container border border-gray-200 dark:border-slate-700 rounded-lg overflow-hidden bg-white dark:bg-slate-800 transition-colors duration-300">
-                    <button class="collapse-trigger flex justify-between items-center w-full p-6 text-left hover:bg-gray-100 dark:hover:bg-slate-700/50 transition">
-                        <span class="text-lg font-medium text-blue-800 dark:text-blue-300">When should I spay or neuter my pet?</span>
-                        <i class="fas fa-chevron-down text-blue-600 dark:text-blue-400 transition-transform duration-200"></i>
+                <div class="collapse-container border overflow-hidden transition-colors duration-300">
+                    <button class="collapse-trigger flex justify-between items-center w-full p-6 text-left transition">
+                        <span class="text-lg font-medium">When should I spay or neuter my pet?</span>
+                        <i class="fas fa-chevron-down transition-transform duration-200"></i>
                     </button>
-                    <div class="collapse-content px-6 pb-6 pt-0 hidden text-gray-600 dark:text-gray-400"><p class="mt-2">We typically recommend spaying or neutering between 4-6 months of age for cats and 6-9 months for dogs, but this can vary based on breed and individual development. Early spaying/neutering helps prevent unwanted litters and can reduce certain health risks and behavioral issues.</p></div>
+                    <div class="collapse-content px-6 pb-6 pt-0 hidden"><p class="mt-2">We typically recommend spaying or neutering between 4-6 months of age for cats and 6-9 months for dogs, but this can vary based on breed and individual development. Early spaying/neutering helps prevent unwanted litters and can reduce certain health risks and behavioral issues.</p></div>
                 </div>
-                 <div class="collapse-container border border-gray-200 dark:border-slate-700 rounded-lg overflow-hidden bg-white dark:bg-slate-800 transition-colors duration-300">
-                    <button class="collapse-trigger flex justify-between items-center w-full p-6 text-left hover:bg-gray-100 dark:hover:bg-slate-700/50 transition">
-                        <span class="text-lg font-medium text-blue-800 dark:text-blue-300">What are your emergency procedures?</span>
-                        <i class="fas fa-chevron-down text-blue-600 dark:text-blue-400 transition-transform duration-200"></i>
+                 <div class="collapse-container border overflow-hidden transition-colors duration-300">
+                    <button class="collapse-trigger flex justify-between items-center w-full p-6 text-left transition">
+                        <span class="text-lg font-medium">What are your emergency procedures?</span>
+                        <i class="fas fa-chevron-down transition-transform duration-200"></i>
                     </button>
-                    <div class="collapse-content px-6 pb-6 pt-0 hidden text-gray-600 dark:text-gray-400"><p class="mt-2">For emergencies during clinic hours, please call ahead if possible (01999-727389) so we can prepare for your arrival. After hours, call the same number and you'll be directed to the on-call veterinarian. Never hesitate to seek emergency care if your pet is experiencing distress.</p></div>
+                    <div class="collapse-content px-6 pb-6 pt-0 hidden"><p class="mt-2">For emergencies during clinic hours, please call ahead if possible (01999-727389) so we can prepare for your arrival. After hours, call the same number and you'll be directed to the on-call veterinarian. Never hesitate to seek emergency care if your pet is experiencing distress.</p></div>
                 </div>
             </div>
         </div>
     </section>
     
-    <!-- Testimonials -->
-    <section class="py-16 bg-blue-600 dark:bg-blue-900 text-white transition-colors duration-300">
+    <section class="py-16 text-white transition-colors duration-300 testimonials-section"> <!-- Removed bg-[#0b82b5] -->
         <div class="container mx-auto px-4">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-bold mb-4">What Our Clients Say</h2>
-                <div class="w-24 h-1 bg-yellow-400 dark:bg-yellow-500 mx-auto"></div>
-                <p class="mt-6 text-blue-100 dark:text-blue-200 max-w-3xl mx-auto">Hear from pet owners who trust us with their furry family members</p>
+                <div class="w-24 h-1 mx-auto"></div> <!-- bg color from variables -->
+                <p class="mt-6 max-w-3xl mx-auto">Hear from pet owners who trust us with their furry family members</p> <!-- text color from variables -->
             </div>
-            
             <div class="grid md:grid-cols-3 gap-8">
-                <div class="bg-blue-500 dark:bg-blue-800 p-6 rounded-lg shadow-lg transition-colors duration-300">
-                    <div class="flex items-center mb-4 text-yellow-400 dark:text-yellow-500 text-xl"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                    <p class="text-blue-50 dark:text-blue-100 mb-4 text-sm">"The team at Pet's Care Clinic & Diagnostic Centre has been wonderful with my Persian cat Muffin. They're gentle, knowledgeable, and truly care about her wellbeing. The facilities are clean and modern."</p>
-                    <div class="flex items-center"><div class="w-12 h-12 rounded-full bg-blue-400 dark:bg-blue-700 flex items-center justify-center mr-4"><i class="fas fa-user text-xl text-white"></i></div><div><h4 class="font-bold text-white">Ayesha Rahman</h4><p class="text-blue-100 dark:text-blue-200 text-xs">Cat Owner</p></div></div>
+                <div class="p-6 shadow-lg transition-colors duration-300"> <!-- bg, rounded-lg color from variables/CSS -->
+                    <div class="flex items-center mb-4 text-xl"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div> <!-- star color from variables -->
+                    <p class="mb-4 text-sm">"The team at Pet's Care Clinic & Diagnostic Centre & Diagnostic Centre has been wonderful with my Persian cat Muffin. They're gentle, knowledgeable, and truly care about her wellbeing. The facilities are clean and modern."</p> <!-- text color from variables -->
+                    <div class="flex items-center"><div class="w-12 h-12 rounded-full flex items-center justify-center mr-4"><i class="fas fa-user text-xl"></i></div><div><h4 class="font-bold">Ayesha Rahman</h4><p class="text-xs">Cat Owner</p></div></div> <!-- text colors from variables -->
                 </div>
-                <div class="bg-blue-500 dark:bg-blue-800 p-6 rounded-lg shadow-lg transition-colors duration-300">
-                    <div class="flex items-center mb-4 text-yellow-400 dark:text-yellow-500 text-xl"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                    <p class="text-blue-50 dark:text-blue-100 mb-4 text-sm">"When my Labrador Max needed emergency surgery, the doctors at Pet's Care Clinic were amazing. They saved his life and followed up with outstanding aftercare. Forever grateful!"</p>
-                    <div class="flex items-center"><div class="w-12 h-12 rounded-full bg-blue-400 dark:bg-blue-700 flex items-center justify-center mr-4"><i class="fas fa-user text-xl text-white"></i></div><div><h4 class="font-bold text-white">Rafiqul Islam</h4><p class="text-blue-100 dark:text-blue-200 text-xs">Dog Owner</p></div></div>
+                <div class="p-6 shadow-lg transition-colors duration-300">
+                    <div class="flex items-center mb-4 text-xl"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="mb-4 text-sm">"When my Labrador Max needed emergency surgery, the doctors at Pet's Care Clinic & Diagnostic Centre were amazing. They saved his life and followed up with outstanding aftercare. Forever grateful!"</p>
+                    <div class="flex items-center"><div class="w-12 h-12 rounded-full flex items-center justify-center mr-4"><i class="fas fa-user text-xl"></i></div><div><h4 class="font-bold">Rafiqul Islam</h4><p class="text-xs">Dog Owner</p></div></div>
                 </div>
-                <div class="bg-blue-500 dark:bg-blue-800 p-6 rounded-lg shadow-lg transition-colors duration-300">
-                    <div class="flex items-center mb-4 text-yellow-400 dark:text-yellow-500 text-xl"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                    <p class="text-blue-50 dark:text-blue-100 mb-4 text-sm">"I bring all my 5 pet parrots here for regular checkups. The bird care specialist is excellent and they always handle my birds with such care. Prices are reasonable too."</p>
-                    <div class="flex items-center"><div class="w-12 h-12 rounded-full bg-blue-400 dark:bg-blue-700 flex items-center justify-center mr-4"><i class="fas fa-user text-xl text-white"></i></div><div><h4 class="font-bold text-white">Nusrat Jahan</h4><p class="text-blue-100 dark:text-blue-200 text-xs">Bird Owner</p></div></div>
+                <div class="p-6 shadow-lg transition-colors duration-300">
+                    <div class="flex items-center mb-4 text-xl"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="mb-4 text-sm">"I bring all my 5 pet parrots here for regular checkups. The bird care specialist is excellent and they always handle my birds with such care. Prices are reasonable too."</p>
+                    <div class="flex items-center"><div class="w-12 h-12 rounded-full flex items-center justify-center mr-4"><i class="fas fa-user text-xl"></i></div><div><h4 class="font-bold">Nusrat Jahan</h4><p class="text-xs">Bird Owner</p></div></div>
                 </div>
             </div>
         </div>
     </section>
     
-    <!-- Gallery -->
-    <section class="py-16 bg-gray-100 dark:bg-slate-800 transition-colors duration-300">
+    <section class="py-16 transition-colors duration-300 gallery-section"> <!-- Removed bg-gray-100 -->
         <div class="container mx-auto px-4">
             <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-blue-700 dark:text-blue-400 mb-4">Our Clinic & Patients</h2>
-                <div class="w-24 h-1 bg-blue-600 dark:bg-blue-500 mx-auto"></div>
-                <p class="mt-6 text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">A glimpse into our facility and the pets we care for</p>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Our Clinic & Patients</h2>
+                <div class="w-24 h-1 mx-auto"></div>
+                <p class="mt-6 max-w-3xl mx-auto">A glimpse into our facility and the pets we care for</p>
             </div>
-            
             <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                <a href="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" target="_blank" class="gallery-item block overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300 group">
+                <a href="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" target="_blank" class="gallery-item block overflow-hidden shadow-md hover:shadow-xl transition duration-300 group"> <!-- rounded-lg handled by CSS -->
                     <img src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Vet examining dog" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500">
                 </a>
-                <a href="https://images.unsplash.com/photo-1601758003122-53c40e686a19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" target="_blank" class="gallery-item block overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300 group">
+                <a href="https://images.unsplash.com/photo-1601758003122-53c40e686a19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" target="_blank" class="gallery-item block overflow-hidden shadow-md hover:shadow-xl transition duration-300 group">
                     <img src="https://images.unsplash.com/photo-1601758003122-53c40e686a19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Vet examining cat" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500">
                 </a>
-                <a href="https://images.unsplash.com/photo-1601001815894-4bb6d1c3fb1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" target="_blank" class="gallery-item block overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300 group">
+                <a href="https://images.unsplash.com/photo-1601001815894-4bb6d1c3fb1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" target="_blank" class="gallery-item block overflow-hidden shadow-md hover:shadow-xl transition duration-300 group">
                     <img src="https://images.unsplash.com/photo-1601001815894-4bb6d1c3fb1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Vaccination process" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500">
                 </a>
-                <a href="https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" target="_blank" class="gallery-item block overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300 group">
+                <a href="https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" target="_blank" class="gallery-item block overflow-hidden shadow-md hover:shadow-xl transition duration-300 group">
                     <img src="https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Pet grooming session" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500">
                 </a>
             </div>
         </div>
     </section>
     
-    <!-- Footer -->
-    <footer class="bg-blue-700 dark:bg-blue-900 text-white pt-12 pb-6 transition-colors duration-300">
+    <footer class="text-white pt-12 pb-6 transition-colors duration-300"> <!-- Removed bg-[#0b82b5] -->
         <div class="container mx-auto px-4">
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
                 <div>
                     <a href="#home" class="flex items-center space-x-2 mb-4">
-                        <i class="fas fa-paw text-2xl text-yellow-300"></i>
-                        <span class="text-xl font-bold">Pet's Care Clinic</span>
+                        <i class="fas fa-paw text-2xl"></i>
+                        <span class="text-xl font-bold">Pet's Care Clinic & Diagnostic Centre</span>
                     </a>
-                    <p class="mb-4 text-blue-100 dark:text-blue-200 text-sm">Compassionate veterinary care for your beloved pets in Bangladesh.</p>
+                    <p class="mb-4 text-sm">Compassionate veterinary care for your beloved pets in Bangladesh.</p> <!-- text color from variables -->
                 </div>
                 <div>
-                    <h3 class="text-lg font-bold mb-4 text-yellow-300">Quick Links</h3>
+                    <h3 class="text-lg font-bold mb-4">Quick Links</h3> <!-- text color from variables -->
                     <ul class="space-y-2 text-sm">
-                        <li><a href="#home" class="text-blue-100 dark:text-blue-200 hover:text-yellow-300 transition">Home</a></li>
-                        <li><a href="#services" class="text-blue-100 dark:text-blue-200 hover:text-yellow-300 transition">Services</a></li>
-                        <li><a href="#pricing" class="text-blue-100 dark:text-blue-200 hover:text-yellow-300 transition">Pricing</a></li>
-                        <li><a href="#contact" class="text-blue-100 dark:text-blue-200 hover:text-yellow-300 transition">Contact</a></li>
+                        <li><a href="#home" class="transition">Home</a></li>
+                        <li><a href="#services" class="transition">Services</a></li>
+                        <li><a href="#pricing" class="transition">Pricing</a></li>
+                        <li><a href="#contact" class="transition">Contact</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h3 class="text-lg font-bold mb-4 text-yellow-300">Services</h3>
+                    <h3 class="text-lg font-bold mb-4">Services</h3>
                     <ul class="space-y-2 text-sm">
-                        <li><a href="#services" class="text-blue-100 dark:text-blue-200 hover:text-yellow-300 transition">Health Checkups</a></li>
-                        <li><a href="#services" class="text-blue-100 dark:text-blue-200 hover:text-yellow-300 transition">Vaccinations</a></li>
-                        <li><a href="#services" class="text-blue-100 dark:text-blue-200 hover:text-yellow-300 transition">Surgical Services</a></li>
-                        <li><a href="#services" class="text-blue-100 dark:text-blue-200 hover:text-yellow-300 transition">Grooming</a></li>
+                        <li><a href="#services" class="transition">Health Checkups</a></li>
+                        <li><a href="#services" class="transition">Vaccinations</a></li>
+                        <li><a href="#services" class="transition">Surgical Services</a></li>
+                        <li><a href="#services" class="transition">Grooming</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h3 class="text-lg font-bold mb-4 text-yellow-300">Contact Info</h3>
+                    <h3 class="text-lg font-bold mb-4">Contact Info</h3>
                     <ul class="space-y-3 text-sm">
-                        <li class="flex items-start"><i class="fas fa-map-marker-alt mt-1 mr-2 text-yellow-300"></i><span class="text-blue-100 dark:text-blue-200">ইয়াকুবিয়া গার্লস স্কুল এর ঠিক বিপরীত প্বার্শে, Cafe Bar-B-Q এর দ্বিতীয় তলা, Pet's Care Clinic & Diagnostic Centre</span></li>
-                        <li class="flex items-center"><i class="fas fa-phone-alt mr-2 text-yellow-300"></i><a href="tel:01999727389" class="text-blue-100 dark:text-blue-200 hover:text-yellow-300">01999-727389</a></li>
-                        <li class="flex items-center"><i class="fas fa-clock mr-2 text-yellow-300"></i><span class="text-blue-100 dark:text-blue-200">9:00 AM - 8:00 PM (Mon-Sat)</span></li>
+                        <li class="flex items-start"><i class="fas fa-map-marker-alt mt-1 mr-2"></i><span>ইয়াকুবিয়া গার্লস স্কুল এর ঠিক বিপরীত প্বার্শে, Cafe Bar-B-Q এর দ্বিতীয় তলা, Pet's Care Clinic & Diagnostic Centre</span></li>
+                        <li class="flex items-center"><i class="fas fa-phone-alt mr-2"></i><a href="tel:01999727389">01999-727389</a></li>
+                        <li class="flex items-center"><i class="fas fa-clock mr-2"></i><span>9:00 AM - 8:00 PM (Mon-Sat)</span></li>
                     </ul>
                 </div>
             </div>
-            <div class="border-t border-blue-600 dark:border-blue-800 pt-6 text-center text-blue-200 dark:text-blue-300 text-sm">
+            <div class="border-t pt-6 text-center text-sm"> <!-- border and text color from variables -->
                 <p>© <span id="currentYear"></span> Pet's Care Clinic & Diagnostic Centre. All Rights Reserved.</p>
                 <p class="mt-2">Designed with <i class="fas fa-heart text-red-400"></i> for your pets' wellbeing</p>
             </div>
@@ -463,146 +690,133 @@
     </footer>
     
     <div class="floating-btn">
-        <a href="https://wa.me/8801999727389" target="_blank" class="bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition transform hover:scale-110 flex items-center justify-center pulse" aria-label="Chat on WhatsApp">
+        <!-- Added class "whatsapp-btn" and removed specific bg color classes -->
+        <a href="https://wa.me/8801999727389" target="_blank" class="whatsapp-btn p-4 shadow-lg transition transform hover:scale-110 flex items-center justify-center pulse" aria-label="Chat on WhatsApp">
             <i class="fab fa-whatsapp text-2xl"></i>
         </a>
     </div>
     
-    <button id="back-to-top" class="fixed bottom-20 right-4 md:bottom-5 md:right-5 bg-blue-600 dark:bg-blue-500 text-white p-3 rounded-full shadow-lg hidden hover:bg-blue-700 dark:hover:bg-blue-600 transition focus:outline-none" aria-label="Back to top">
+    <button id="back-to-top" class="fixed bottom-20 right-4 md:bottom-5 md:right-5 text-white p-3 shadow-lg hidden transition focus:outline-none" aria-label="Back to top"> <!-- bg, hover bg, rounded-full from variables/CSS -->
         <i class="fas fa-arrow-up"></i>
     </button>
     
     <script>
-        // --- Theme Toggle ---
-        const themeToggleDesktopBtn = document.getElementById('theme-toggle-desktop');
-        const themeToggleMobileBtn = document.getElementById('theme-toggle-mobile');
-        const htmlElement = document.documentElement;
-        const sunIconClass = 'fa-sun';
-        const moonIconClass = 'fa-moon';
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Theme Toggle ---
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const themeToggleIcon = themeToggleBtn.querySelector('i');
+            const htmlElement = document.documentElement;
 
-        function updateButtonIcons(isDark) {
-            const iconToAdd = isDark ? sunIconClass : moonIconClass;
-            const iconToRemove = isDark ? moonIconClass : sunIconClass;
-            [themeToggleDesktopBtn, themeToggleMobileBtn].forEach(btn => {
-                if (btn) {
-                    const iconElement = btn.querySelector('i');
-                    if (iconElement) {
-                        iconElement.classList.remove(iconToRemove);
-                        iconElement.classList.add(iconToAdd);
+            function applyTheme(theme) {
+                if (theme === 'dark') {
+                    htmlElement.setAttribute('data-theme', 'dark');
+                    if (themeToggleIcon) {
+                        themeToggleIcon.classList.remove('fa-moon');
+                        themeToggleIcon.classList.add('fa-sun');
                     }
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    htmlElement.removeAttribute('data-theme');
+                     if (themeToggleIcon) {
+                        themeToggleIcon.classList.remove('fa-sun');
+                        themeToggleIcon.classList.add('fa-moon');
+                    }
+                    localStorage.setItem('theme', 'light');
                 }
-            });
-        }
+            }
 
-        function applyTheme(theme) {
-            const isDark = theme === 'dark';
-            htmlElement.classList.toggle('dark', isDark);
-            updateButtonIcons(isDark);
-            localStorage.setItem('petClinicTheme', theme); // Use a unique key for localStorage
-        }
-
-        function toggleTheme() {
-            const isCurrentlyDark = htmlElement.classList.contains('dark');
-            applyTheme(isCurrentlyDark ? 'light' : 'dark');
-        }
-
-        if (themeToggleDesktopBtn) themeToggleDesktopBtn.addEventListener('click', toggleTheme);
-        if (themeToggleMobileBtn) themeToggleMobileBtn.addEventListener('click', toggleTheme);
-
-        // Apply initial theme: 1. localStorage, 2. System preference
-        const savedTheme = localStorage.getItem('petClinicTheme');
-        if (savedTheme) {
+            // Check for saved theme preference, or use system preference, or default to light
+            let savedTheme = localStorage.getItem('theme');
+            if (!savedTheme) {
+                savedTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            }
             applyTheme(savedTheme);
-        } else {
-            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                applyTheme('dark');
-            } else {
-                applyTheme('light'); // Default to light if no preference
-            }
-        }
-        // Listen for changes in system preference
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-            if (!localStorage.getItem('petClinicTheme')) { // Only if no user override
-                applyTheme(e.matches ? 'dark' : 'light');
-            }
-        });
 
-        // --- Mobile menu toggle ---
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        if (mobileMenuButton && mobileMenu) {
-            mobileMenuButton.addEventListener('click', function() {
-                const isHidden = mobileMenu.classList.toggle('hidden');
-                mobileMenuButton.setAttribute('aria-expanded', !isHidden);
-            });
-        }
-        
-        // --- FAQ accordion ---
-        const collapseTriggers = document.querySelectorAll('.collapse-trigger');
-        collapseTriggers.forEach(trigger => {
-            trigger.addEventListener('click', function() {
-                const content = this.nextElementSibling;
-                const icon = this.querySelector('i.fa-chevron-down');
-                content.classList.toggle('hidden');
-                icon.classList.toggle('rotate-180');
-            });
-        });
-        
-        // --- Back to top button ---
-        const backToTopButton = document.getElementById('back-to-top');
-        if (backToTopButton) {
-            window.addEventListener('scroll', function() {
-                if (window.pageYOffset > 300) { backToTopButton.classList.remove('hidden'); } 
-                else { backToTopButton.classList.add('hidden'); }
-            });
-            backToTopButton.addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 'smooth' }); });
-        }
-        
-        // --- Appointment Form submission ---
-        const appointmentForm = document.getElementById('appointmentForm');
-        const formSubmissionMessageEl = document.getElementById('form-submission-message');
-        if (appointmentForm && formSubmissionMessageEl) {
-            appointmentForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                const formData = new FormData(appointmentForm);
-                let allFilled = true;
-                // Basic validation for required fields (add name attributes to your inputs if not present)
-                ['name', 'phone', 'pet', 'service'].forEach(fieldName => {
-                    if (!formData.get(fieldName)) allFilled = false;
+            if (themeToggleBtn) {
+                themeToggleBtn.addEventListener('click', () => {
+                    const currentTheme = htmlElement.hasAttribute('data-theme') ? 'dark' : 'light';
+                    applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
                 });
-
-                if (!allFilled) {
-                    formSubmissionMessageEl.textContent = 'Please fill out all required fields.';
-                    formSubmissionMessageEl.className = 'mt-4 text-center text-red-500 dark:text-red-400';
-                    return;
-                }
-                formSubmissionMessageEl.textContent = 'Thank you! Your appointment request has been submitted.';
-                formSubmissionMessageEl.className = 'mt-4 text-center text-green-500 dark:text-green-400';
-                appointmentForm.reset();
-                setTimeout(() => { formSubmissionMessageEl.textContent = ''; }, 5000);
+            }
+            
+            // --- Mobile menu toggle ---
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', function() {
+                    const isHidden = mobileMenu.classList.toggle('hidden');
+                    mobileMenuButton.setAttribute('aria-expanded', String(!isHidden));
+                });
+            }
+            
+            // --- FAQ accordion ---
+            const collapseTriggers = document.querySelectorAll('.collapse-trigger');
+            collapseTriggers.forEach(trigger => {
+                trigger.addEventListener('click', function() {
+                    const content = this.nextElementSibling;
+                    const icon = this.querySelector('i.fa-chevron-down');
+                    content.classList.toggle('hidden');
+                    icon.classList.toggle('rotate-180');
+                });
             });
-        }
+            
+            // --- Back to top button ---
+            const backToTopButton = document.getElementById('back-to-top');
+            if (backToTopButton) {
+                window.addEventListener('scroll', function() {
+                    if (window.pageYOffset > 300) { backToTopButton.classList.remove('hidden'); } 
+                    else { backToTopButton.classList.add('hidden'); }
+                });
+                backToTopButton.addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+            }
+            
+            // --- Appointment Form submission ---
+            const appointmentForm = document.getElementById('appointmentForm');
+            const formSubmissionMessageEl = document.getElementById('form-submission-message');
+            if (appointmentForm && formSubmissionMessageEl) {
+                appointmentForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const formData = new FormData(appointmentForm);
+                    let allRequiredFilled = true;
+                    ['name', 'phone', 'pet', 'service'].forEach(fieldName => {
+                        if (!formData.get(fieldName)) allRequiredFilled = false;
+                    });
 
-        // --- Update current year in footer ---
-        const currentYearSpan = document.getElementById('currentYear');
-        if (currentYearSpan) { currentYearSpan.textContent = new Date().getFullYear(); }
-
-        // --- Smooth scroll for nav links & close mobile menu ---
-        document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
-                        mobileMenu.classList.add('hidden');
-                        if(mobileMenuButton) mobileMenuButton.setAttribute('aria-expanded', 'false');
+                    if (!allRequiredFilled) {
+                        formSubmissionMessageEl.textContent = 'Please fill out all required fields.';
+                        formSubmissionMessageEl.className = 'mt-4 text-center text-red-500'; // Keep text color for error
+                        return;
                     }
-                    const navbarHeight = document.querySelector('nav').offsetHeight || 70;
-                    const elementPosition = targetElement.getBoundingClientRect().top;
-                    const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
-                    window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-                }
+                    formSubmissionMessageEl.textContent = 'Thank you! Your appointment request has been submitted.';
+                    formSubmissionMessageEl.className = 'mt-4 text-center text-green-500'; // Keep text color for success
+                    appointmentForm.reset();
+                    setTimeout(() => { formSubmissionMessageEl.textContent = ''; }, 5000);
+                });
+            }
+
+            // --- Update current year in footer ---
+            const currentYearSpan = document.getElementById('currentYear');
+            if (currentYearSpan) { currentYearSpan.textContent = new Date().getFullYear(); }
+
+            // --- Smooth scroll for nav links & close mobile menu ---
+            document.querySelectorAll('nav a[href^="#"], footer a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (!targetId || targetId === "#") return; // Prevent errors for empty hrefs
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                            mobileMenu.classList.add('hidden');
+                            if(mobileMenuButton) mobileMenuButton.setAttribute('aria-expanded', 'false');
+                        }
+                        const navbar = document.querySelector('nav');
+                        const navbarHeight = navbar ? navbar.offsetHeight : 70; 
+                        const elementPosition = targetElement.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
+                        window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+                    }
+                });
             });
         });
     </script>
