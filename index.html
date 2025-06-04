@@ -7,6 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <link href="https://fonts.googleapis.com/css2?family=Anek+Bangla:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
             /* Light Theme (Default) */
@@ -134,7 +135,7 @@
             background-color: var(--bg-primary);
             color: var(--text-primary);
             transition: background-color 0.3s ease, color 0.3s ease; /* Added color transition */
-            font-family: 'Inter', sans-serif; /* Added Inter font */
+            font-family: 'Anek Bangla', 'Inter', sans-serif; /* Added Inter font */
         }
         /* Fallback font if Inter is not available */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
@@ -303,11 +304,7 @@
         .pulse { animation: pulse 2s infinite; }
 
         /* Ensure Font Awesome icons inherit color properly or set explicitly if needed */
-        .service-card-base ul .fas, /* For list icons in service cards */
-        .text-\[\#0b82b5\] i /* For icons in contact info if they don't inherit */
-         { 
-            /* color is set by specific service card variables or parent text color */
-         }
+        /* Icons will inherit colors from their parent elements */
          #theme-toggle {
             color: var(--text-on-accent); /* Ensure icon is visible on nav */
             border-radius: 9999px; /* rounded-full */
@@ -320,7 +317,7 @@
             border-radius: 0.375rem; /* default rounded, can be overridden by more specific (e.g. rounded-full) */
         }
         /* Override for specific elements that should be fully rounded */
-        .hero a.rounded-full, #pricing button, #contact form button, .floating-btn a, #back-to-top, #theme-toggle {
+        .hero a.rounded-full, #pricing button, #contact form button, .floating-btn a, #theme-toggle {
             border-radius: 9999px;
         }
         /* Ensure service cards, pricing cards, contact info card, testimonial cards are rounded */
@@ -331,6 +328,70 @@
             border-radius: 0.5rem; /* rounded-lg */
         }
 
+        /* Add this to the <style> section */
+        .menu-toggle-animate {
+            transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+        }
+        .menu-toggle-rotate {
+            transform: rotate(90deg);
+        }
+
+        .menu-icon {
+          display: inline-block;
+          position: relative;
+          width: 28px;
+          height: 28px;
+          cursor: pointer;
+        }
+        .menu-icon .bar {
+          display: block;
+          position: absolute;
+          height: 3px;
+          width: 100%;
+          background: var(--text-on-accent, #fff);
+          border-radius: 2px;
+          opacity: 1;
+          left: 0;
+          transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+        }
+        .menu-icon .bar:nth-child(1) {
+          top: 6px;
+        }
+        .menu-icon .bar:nth-child(2) {
+          top: 13px;
+        }
+        .menu-icon .bar:nth-child(3) {
+          top: 20px;
+        }
+        .menu-icon.cross .bar:nth-child(1) {
+          transform: rotate(45deg);
+          top: 13px;
+        }
+        .menu-icon.cross .bar:nth-child(2) {
+          opacity: 0;
+        }
+        .menu-icon.cross .bar:nth-child(3) {
+          transform: rotate(-45deg);
+          top: 13px;
+        }
+
+        /* Custom Scrollbar Styles */
+        ::-webkit-scrollbar {
+            width: 10px;
+            background: var(--bg-tertiary);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, var(--bg-accent), var(--bg-accent-hover));
+            border-radius: 8px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, var(--bg-accent-hover), var(--bg-accent-darker));
+        }
+        /* For Firefox */
+        html {
+            scrollbar-width: thin;
+            scrollbar-color: var(--bg-accent) var(--bg-tertiary);
+        }
 
     </style>
 </head>
@@ -356,7 +417,11 @@
                     </button>
                     <div class="md:hidden flex items-center ml-2">
                         <button id="mobile-menu-button" class="focus:outline-none p-2" aria-label="Open menu" aria-expanded="false">
-                            <i class="fas fa-bars text-xl"></i>
+                            <span id="mobile-menu-icon" class="menu-icon block w-7 h-7 relative">
+                                <span class="bar"></span>
+                                <span class="bar"></span>
+                                <span class="bar"></span>
+                            </span>
                         </button>
                     </div>
                 </div>
@@ -376,7 +441,7 @@
             <h1 class="text-4xl md:text-6xl font-bold mb-6">Your Pet's Health Is Our Top Priority</h1>
             <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">Comprehensive veterinary care with compassion for your beloved pets in Bangladesh.</p>
             <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="#contact" class="bg-yellow-400 font-bold py-3 px-6 transition transform hover:scale-105 shadow-lg rounded-full">Book Appointment</a> <!-- text color handled by variable, added rounded-full -->
+                <a href="#appointment-form" class="bg-yellow-400 font-bold py-3 px-6 transition transform hover:scale-105 shadow-lg rounded-full">Book Appointment</a> <!-- text color handled by variable, added rounded-full -->
                 <a href="#services" class="border-2 font-bold py-3 px-6 transition transform hover:scale-105 rounded-full">Our Services</a> <!-- text color handled by variable, added rounded-full -->
             </div>
         </div>
@@ -535,28 +600,28 @@
                 </div>
             </div>
             
-             <div class="mt-12 bg-[#0b82b5] dark:bg-[#086a94] text-white p-8 rounded-lg shadow-lg transition-colors duration-300">
+             <div id="appointment-form" class="mt-12 bg-[#0b82b5] dark:bg-[#086a94] text-white p-8 rounded-lg shadow-lg transition-colors duration-300">
   <div class="max-w-4xl mx-auto">
     <h3 class="text-2xl font-bold mb-4">Book an Appointment</h3>
     <p class="mb-6 text-[#e0f2f7] dark:text-[#ccecf5]">Fill out the form below to schedule an appointment for your pet</p>
 
-    <form id="appointmentForm" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <form id="appointmentForm" action="https://docs.google.com/forms/d/e/1FAIpQLSdtuHS0FxK5PPMdzEB02dErnQyKgJx5pL1ZB0Lgv5zYqpzMzw/formResponse" method="POST" target="_blank" class="grid grid-cols-1 md:grid-cols-2 gap-6">
       <!-- Name -->
       <div>
         <label for="name" class="block mb-2">Your Name</label>
-        <input type="text" id="name" name="name" placeholder="Enter your name" class="w-full px-4 py-2 rounded bg-[#086f9c] dark:bg-[#075985] border border-[#075985] dark:border-[#064e6e] focus:outline-none focus:ring-2 focus:ring-yellow-400 text-white placeholder-[#ccecf5] dark:placeholder-[#9ccddc]" required>
+        <input type="text" id="entry.543042257" name="entry.543042257" placeholder="Enter your name" class="w-full px-4 py-2 rounded bg-[#086f9c] dark:bg-[#075985] border border-[#075985] dark:border-[#064e6e] focus:outline-none focus:ring-2 focus:ring-yellow-400 text-white placeholder-[#ccecf5] dark:placeholder-[#9ccddc]" required>
       </div>
 
       <!-- Phone -->
       <div>
         <label for="phone" class="block mb-2">Phone Number</label>
-        <input type="tel" id="phone" name="phone" placeholder="Enter phone number" class="w-full px-4 py-2 rounded bg-[#086f9c] dark:bg-[#075985] border border-[#075985] dark:border-[#064e6e] focus:outline-none focus:ring-2 focus:ring-yellow-400 text-white placeholder-[#ccecf5] dark:placeholder-[#9ccddc]" required>
+        <input type="tel" id="entry.1797584742" name="entry.1797584742" placeholder="Enter phone number" class="w-full px-4 py-2 rounded bg-[#086f9c] dark:bg-[#075985] border border-[#075985] dark:border-[#064e6e] focus:outline-none focus:ring-2 focus:ring-yellow-400 text-white placeholder-[#ccecf5] dark:placeholder-[#9ccddc]" required>
       </div>
 
       <!-- Pet Type -->
       <div class="md:col-span-2">
         <label for="pet" class="block mb-2">Pet Type</label>
-        <select id="pet" name="pet" class="w-full px-4 py-2 rounded bg-[#086f9c] dark:bg-[#075985] border border-[#075985] dark:border-[#064e6e] focus:outline-none focus:ring-2 focus:ring-yellow-400 text-white" required>
+        <select id="entry.1128494312" name="entry.1128494312" class="w-full px-4 py-2 rounded bg-[#086f9c] dark:bg-[#075985] border border-[#075985] dark:border-[#064e6e] focus:outline-none focus:ring-2 focus:ring-yellow-400 text-white" required>
           <option value="" disabled selected>Select pet type</option>
           <option value="cat">Cat</option>
           <option value="dog">Dog</option>
@@ -568,7 +633,7 @@
       <!-- Service -->
       <div class="md:col-span-2">
         <label for="service" class="block mb-2">Service Needed</label>
-        <select id="service" name="service" class="w-full px-4 py-2 rounded bg-[#086f9c] dark:bg-[#075985] border border-[#075985] dark:border-[#064e6e] focus:outline-none focus:ring-2 focus:ring-yellow-400 text-white" required>
+        <select id="entry.702894686" name="entry.702894686" class="w-full px-4 py-2 rounded bg-[#086f9c] dark:bg-[#075985] border border-[#075985] dark:border-[#064e6e] focus:outline-none focus:ring-2 focus:ring-yellow-400 text-white" required>
           <option value="" disabled selected>Select service</option>
           <option value="checkup">Health Checkup</option>
           <option value="vaccine">Vaccination</option>
@@ -582,7 +647,7 @@
       <!-- Message -->
       <div class="md:col-span-2">
         <label for="message" class="block mb-2">Message (Optional)</label>
-        <textarea id="message" name="message" rows="4" placeholder="Write something..." class="w-full px-4 py-2 rounded bg-[#086f9c] dark:bg-[#075985] border border-[#075985] dark:border-[#064e6e] focus:outline-none focus:ring-2 focus:ring-yellow-400 text-white placeholder-[#ccecf5] dark:placeholder-[#9ccddc]"></textarea>
+        <textarea id="entry.1773543705" name="entry.1773543705" rows="4" placeholder="Write something..." class="w-full px-4 py-2 rounded bg-[#086f9c] dark:bg-[#075985] border border-[#075985] dark:border-[#064e6e] focus:outline-none focus:ring-2 focus:ring-yellow-400 text-white placeholder-[#ccecf5] dark:placeholder-[#9ccddc]"></textarea>
       </div>
 
       <!-- Submit Button -->
@@ -693,44 +758,44 @@
         </div>
     </section>
     
-    <footer class="text-white pt-12 pb-6 transition-colors duration-300"> <!-- Removed bg-[#0b82b5] -->
+    <footer class="pt-12 pb-6 transition-colors duration-300"> <!-- Removed text-white -->
         <div class="container mx-auto px-4">
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
                 <div>
-                    <a href="#home" class="flex items-center space-x-2 mb-4">
+                    <a href="#home" class="flex items-center space-x-2 mb-4 text-[var(--text-strong)]">
                         <i class="fas fa-paw text-2xl"></i>
                         <span class="text-xl font-bold">Pet's Care Clinic & Diagnostic Centre</span>
                     </a>
-                    <p class="mb-4 text-sm">Compassionate veterinary care for your beloved pets in Bangladesh.</p> <!-- text color from variables -->
+                    <p class="mb-4 text-sm text-[var(--text-secondary)]">Compassionate veterinary care for your beloved pets in Bangladesh.</p>
                 </div>
                 <div>
-                    <h3 class="text-lg font-bold mb-4">Quick Links</h3> <!-- text color from variables -->
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="#home" class="transition">Home</a></li>
-                        <li><a href="#services" class="transition">Services</a></li>
-                        <li><a href="#pricing" class="transition">Pricing</a></li>
-                        <li><a href="#contact" class="transition">Contact</a></li>
+                    <h3 class="text-lg font-bold mb-4 text-[var(--text-strong)]">Quick Links</h3>
+                    <ul class="space-y-2 text-sm text-[var(--text-secondary)]">
+                        <li><a href="#home" class="transition hover:text-[var(--text-primary)]">Home</a></li>
+                        <li><a href="#services" class="transition hover:text-[var(--text-primary)]">Services</a></li>
+                        <li><a href="#pricing" class="transition hover:text-[var(--text-primary)]">Pricing</a></li>
+                        <li><a href="#contact" class="transition hover:text-[var(--text-primary)]">Contact</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h3 class="text-lg font-bold mb-4">Services</h3>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="#services" class="transition">Health Checkups</a></li>
-                        <li><a href="#services" class="transition">Vaccinations</a></li>
-                        <li><a href="#services" class="transition">Surgical Services</a></li>
-                        <li><a href="#services" class="transition">Grooming</a></li>
+                    <h3 class="text-lg font-bold mb-4 text-[var(--text-strong)]">Services</h3>
+                    <ul class="space-y-2 text-sm text-[var(--text-secondary)]">
+                        <li><a href="#services" class="transition hover:text-[var(--text-primary)]">Health Checkups</a></li>
+                        <li><a href="#services" class="transition hover:text-[var(--text-primary)]">Vaccinations</a></li>
+                        <li><a href="#services" class="transition hover:text-[var(--text-primary)]">Surgical Services</a></li>
+                        <li><a href="#services" class="transition hover:text-[var(--text-primary)]">Grooming</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h3 class="text-lg font-bold mb-4">Contact Info</h3>
-                    <ul class="space-y-3 text-sm">
+                    <h3 class="text-lg font-bold mb-4 text-[var(--text-strong)]">Contact Info</h3>
+                    <ul class="space-y-3 text-sm text-[var(--text-secondary)]">
                         <li class="flex items-start"><i class="fas fa-map-marker-alt mt-1 mr-2"></i><span>ইয়াকুবিয়া গার্লস স্কুল এর ঠিক বিপরীত প্বার্শে, Cafe Bar-B-Q এর দ্বিতীয় তলা, Pet's Care Clinic & Diagnostic Centre</span></li>
-                        <li class="flex items-center"><i class="fas fa-phone-alt mr-2"></i><a href="tel:01999727389">01999-727389</a></li>
+                        <li class="flex items-center"><i class="fas fa-phone-alt mr-2"></i><a href="tel:01999727389" class="hover:text-[var(--text-primary)]">01999-727389</a></li>
                         <li class="flex items-center"><i class="fas fa-clock mr-2"></i><span>9:00 AM - 8:00 PM (Mon-Sat)</span></li>
                     </ul>
                 </div>
             </div>
-            <div class="border-t pt-6 text-center text-sm"> <!-- border and text color from variables -->
+            <div class="border-t border-[var(--border-primary)] pt-6 text-center text-sm text-[var(--text-secondary)]">
                 <p>© <span id="currentYear"></span> Pet's Care Clinic & Diagnostic Centre. All Rights Reserved.</p>
                 <p class="mt-2">Designed with <i class="fas fa-heart text-red-400"></i> for your pets' wellbeing</p>
             </div>
@@ -739,14 +804,10 @@
     
     <div class="floating-btn">
         <!-- Added class "whatsapp-btn" and removed specific bg color classes -->
-        <a href="https://wa.me/8801999727389" target="_blank" class="whatsapp-btn p-4 shadow-lg transition transform hover:scale-110 flex items-center justify-center pulse" aria-label="Chat on WhatsApp">
+        <a href="https://wa.me/8801999727389" target="_blank" class="whatsapp-btn w-16 h-16 shadow-lg transition transform hover:scale-110 flex items-center justify-center pulse rounded-full" aria-label="Chat on WhatsApp">
             <i class="fab fa-whatsapp text-2xl"></i>
         </a>
     </div>
-    
-    <button id="back-to-top" class="fixed bottom-20 right-4 md:bottom-5 md:right-5 text-white p-3 shadow-lg hidden transition focus:outline-none" aria-label="Back to top"> <!-- bg, hover bg, rounded-full from variables/CSS -->
-        <i class="fas fa-arrow-up"></i>
-    </button>
     
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -790,10 +851,18 @@
             // --- Mobile menu toggle ---
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
+            const mobileMenuIcon = document.getElementById('mobile-menu-icon');
             if (mobileMenuButton && mobileMenu) {
                 mobileMenuButton.addEventListener('click', function() {
                     const isHidden = mobileMenu.classList.toggle('hidden');
                     mobileMenuButton.setAttribute('aria-expanded', String(!isHidden));
+                    if (mobileMenuIcon) {
+                        if (!isHidden) {
+                            mobileMenuIcon.classList.add('cross');
+                        } else {
+                            mobileMenuIcon.classList.remove('cross');
+                        }
+                    }
                 });
             }
             
@@ -818,30 +887,6 @@
                 backToTopButton.addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 'smooth' }); });
             }
             
-            // --- Appointment Form submission ---
-            const appointmentForm = document.getElementById('appointmentForm');
-            const formSubmissionMessageEl = document.getElementById('form-submission-message');
-            if (appointmentForm && formSubmissionMessageEl) {
-                appointmentForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    const formData = new FormData(appointmentForm);
-                    let allRequiredFilled = true;
-                    ['name', 'phone', 'pet', 'service'].forEach(fieldName => {
-                        if (!formData.get(fieldName)) allRequiredFilled = false;
-                    });
-
-                    if (!allRequiredFilled) {
-                        formSubmissionMessageEl.textContent = 'Please fill out all required fields.';
-                        formSubmissionMessageEl.className = 'mt-4 text-center text-red-500'; // Keep text color for error
-                        return;
-                    }
-                    formSubmissionMessageEl.textContent = 'Thank you! Your appointment request has been submitted.';
-                    formSubmissionMessageEl.className = 'mt-4 text-center text-green-500'; // Keep text color for success
-                    appointmentForm.reset();
-                    setTimeout(() => { formSubmissionMessageEl.textContent = ''; }, 5000);
-                });
-            }
-
             // --- Update current year in footer ---
             const currentYearSpan = document.getElementById('currentYear');
             if (currentYearSpan) { currentYearSpan.textContent = new Date().getFullYear(); }
@@ -866,7 +911,44 @@
                     }
                 });
             });
+
+            // --- Appointment Form AJAX Submission ---
+            const appointmentForm = document.getElementById('appointmentForm');
+            const successModal = document.getElementById('successModal');
+            const closeModalBtn = document.getElementById('closeModalBtn');
+
+            if (appointmentForm) {
+                appointmentForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+
+                    const formData = new FormData(appointmentForm);
+
+                    fetch('https://docs.google.com/forms/d/e/1FAIpQLSdtuHS0FxK5PPMdzEB02dErnQyKgJx5pL1ZB0Lgv5zYqpzMzw/formResponse', {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        body: formData
+                    }).then(() => {
+                        appointmentForm.reset();
+                        if (successModal) successModal.classList.remove('hidden');
+                    });
+                });
+            }
+
+            if (closeModalBtn && successModal) {
+                closeModalBtn.addEventListener('click', () => {
+                    successModal.classList.add('hidden');
+                });
+            }
         });
     </script>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 hidden">
+      <div class="bg-white rounded-lg p-8 shadow-lg text-center max-w-sm w-full">
+        <h2 class="text-2xl font-bold mb-4 text-green-600">Success!</h2>
+        <p class="mb-6 text-gray-700">Your appointment request has been submitted.<br>We will contact you soon.</p>
+        <button id="closeModalBtn" class="bg-green-500 text-white px-6 py-2 rounded-full font-bold hover:bg-green-600 transition">Close</button>
+      </div>
+    </div>
 </body>
 </html>
