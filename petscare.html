@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0b82b5"> <!-- Updated to custom blue -->
+    <title>Pet's Care Clinic & Diagnostic Centre</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <style>
+        /* Base styles */
+        .hero {
+            background-image: linear-gradient(rgba(11, 130, 181, 0.85), rgba(11, 130, 181, 0.85)), url('https://images.unsplash.com/photo-1583511655826-05700680d4d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1280&q=80'); /* Custom blue overlay */
+            background-size: cover;
+            background-position: center;
+            transition: background-image 0.3s ease-in-out;
+        }
+        
+        .service-card-base { transition: all 0.3s ease; }
+        .service-card-base:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 0 15px 0 rgba(11, 130, 181, 0.5); } /* Hover shadow uses custom blue */
+
+        /* Light mode specific service card styles - using distinct accent colors */
+        .health-checkup-light { border-left: 4px solid #0b82b5; background: linear-gradient(to right, #e0f2f7, #ccecf5); } /* Custom blue accent */
+        .vaccinations-light { border-left: 4px solid #6366f1; background: linear-gradient(to right, #eef2ff, #e0e7ff); } /* Indigo */
+        .surgical-services-light { border-left: 4px solid #8b5cf6; background: linear-gradient(to right, #f5f3ff, #ede9fe); } /* Purple */
+        .grooming-light { border-left: 4px solid #ec4899; background: linear-gradient(to right, #fdf2f8, #fce7f3); } /* Pink */
+        .deworming-light { border-left: 4px solid #10b981; background: linear-gradient(to right, #ecfdf5, #d1fae5); } /* Emerald */
+        .diagnostic-center-card-light { border-left: 4px solid #f59e0b; background: linear-gradient(to right, #fffbeb, #fef3c7); } /* Amber */
+        .emergency-light { border-left: 4px solid #ef4444; background: linear-gradient(to right, #fef2f2, #fee2e2); } /* Red */
+        
+        .map-container { position: relative; overflow: hidden; padding-top: 56.25%; }
+        .map-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+        
+        .floating-btn { position: fixed; bottom: 30px; right: 30px; z-index: 50; }
+        
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+        .pulse { animation: pulse 2s infinite; }
+
+        /* Dark Mode Styles */
+        html.dark .hero {
+            background-image: linear-gradient(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.9)), url('https://images.unsplash.com/photo-1583511655826-05700680d4d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1280&q=80'); /* Darker, less saturated overlay for dark mode */
+        }
+        html.dark .service-card-base {
+            background-color: #1f2937; /* bg-slate-800 */
+            border-left-width: 4px;
+        }
+        html.dark .service-card-base:hover {
+             box-shadow: 0 10px 25px -5px rgba(0,0,0,0.4), 0 0 15px 0 rgba(14, 154, 209, 0.4); /* Custom blue lighter shade for glow */
+        }
+
+        /* Service card dark mode border colors - using lighter/brighter versions of their accents */
+        html.dark .health-checkup-dark { border-left-color: #0e9ad1; } /* Lighter custom blue */
+        html.dark .vaccinations-dark { border-left-color: #818cf8; }
+        html.dark .surgical-services-dark { border-left-color: #a78bfa; }
+        html.dark .grooming-dark { border-left-color: #f472b6; }
+        html.dark .deworming-dark { border-left-color: #34d399; }
+        html.dark .diagnostic-center-card-dark { border-left-color: #fcd34d; }
+        html.dark .emergency-dark { border-left-color: #f87171; }
+
+        /* Text and icon colors for service cards */
+        /* Light Mode - specific main icon and heading colors */
+        .health-checkup-light .main-icon, .health-checkup-light h3 { color: #086f9c; } /* Darker custom blue */
+        .health-checkup-light ul .fas { color: #0b82b5; } /* Custom blue for list icons */
+
+        .vaccinations-light .main-icon, .vaccinations-light h3 { color: #4f46e5; } /* Indigo-700 */
+        .vaccinations-light ul .fas { color: #6366f1; } /* Indigo-500 */
+        /* ... (similar for other distinct service cards if needed, or they can use default text colors) ... */
+
+        /* Dark Mode - specific main icon and heading colors */
+        html.dark .service-card-base h3 { color: #93c5fd; } /* Default title color for dark cards */
+        html.dark .service-card-base p, html.dark .service-card-base ul span, html.dark .service-card-base ul li { color: #d1d5db; }
+        html.dark .service-card-base .main-icon { color: #93c5fd; } /* Default main icon color */
+        html.dark .service-card-base ul .fas { color: #9ca3af; } /* Default list icon color */
+
+        html.dark .health-checkup-dark h3, html.dark .health-checkup-dark .main-icon, html.dark .health-checkup-dark ul .fas { color: #0e9ad1; } /* Lighter custom blue */
+        html.dark .vaccinations-dark h3, html.dark .vaccinations-dark .main-icon, html.dark .vaccinations-dark ul .fas { color: #818cf8; }
+        /* ... (similar for other distinct service cards in dark mode) ... */
+
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-700 dark:bg-slate-900 dark:text-gray-300 transition-colors duration-300 font-sans">
+    <!-- Navigation -->
+    <nav class="bg-[#0b82b5] dark:bg-[#086a94] text-white shadow-lg sticky top-0 z-40 transition-colors duration-300">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <a href="#home" class="flex items-center space-x-2">
+                    <i class="fas fa-paw text-2xl"></i>
+                    <span class="text-xl sm:text-2xl font-bold">Pet's Care Clinic & Diagnostic Centre</span>
+                </a>
+                
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="#home" class="hover:text-yellow-300 transition">Home</a>
+                    <a href="#services" class="hover:text-yellow-300 transition">Services</a>
+                    <a href="#pricing" class="hover:text-yellow-300 transition">Pricing</a>
+                    <a href="#contact" class="hover:text-yellow-300 transition">Contact</a>
+                </div>
+
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" class="focus:outline-none p-2" aria-label="Open menu" aria-expanded="false">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div id="mobile-menu" class="hidden md:hidden py-2">
+                <a href="#home" class="block py-2 px-3 rounded hover:bg-[#0e9ad1]/50 dark:hover:bg-[#075985]/70 transition">Home</a>
+                <a href="#services" class="block py-2 px-3 rounded hover:bg-[#0e9ad1]/50 dark:hover:bg-[#075985]/70 transition">Services</a>
+                <a href="#pricing" class="block py-2 px-3 rounded hover:bg-[#0e9ad1]/50 dark:hover:bg-[#075985]/70 transition">Pricing</a>
+                <a href="#contact" class="block py-2 px-3 rounded hover:bg-[#0e9ad1]/50 dark:hover:bg-[#075985]/70 transition">Contact</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section id="home" class="hero text-white py-20 md:py-32">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6">Your Pet's Health Is Our Top Priority</h1>
+            <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">Comprehensive veterinary care with compassion for your beloved pets in Bangladesh.</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#contact" class="bg-yellow-400 hover:bg-yellow-300 text-[#086a94] dark:bg-yellow-500 dark:hover:bg-yellow-400 dark:text-gray-900 font-bold py-3 px-6 rounded-full transition transform hover:scale-105 shadow-lg">Book Appointment</a>
+                <a href="#services" class="border-2 border-white text-white font-bold py-3 px-6 rounded-full hover:bg-white hover:text-[#0b82b5] dark:hover:text-[#086a94] transition transform hover:scale-105">Our Services</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Services Section -->
+    <section id="services" class="py-16 bg-gray-100 dark:bg-slate-800 transition-colors duration-300">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-[#086f9c] dark:text-[#0e9ad1] mb-4">Our Services</h2>
+                <div class="w-24 h-1 bg-[#0b82b5] dark:bg-[#0e9ad1] mx-auto"></div>
+                <p class="mt-6 text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">We offer a comprehensive range of veterinary services to keep your pets healthy and happy.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="service-card-base health-checkup-light dark:health-checkup-dark p-6 rounded-lg shadow-md">
+                    <div class="mb-4"><i class="fas fa-heartbeat text-4xl main-icon"></i></div>
+                    <h3 class="text-xl font-bold mb-3">Health Checkup</h3>
+                    <p class="text-gray-600 mb-4 text-sm">Regular health examinations for cats, dogs, and birds to detect potential health issues early.</p>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-center"><i class="fas fa-cat mr-2"></i><span>Cats: 600 BDT</span></li>
+                        <li class="flex items-center"><i class="fas fa-dog mr-2"></i><span>Dogs: 600 BDT</span></li>
+                        <li class="flex items-center"><i class="fas fa-dove mr-2"></i><span>Birds: 350 BDT</span></li>
+                    </ul>
+                </div>
+                <div class="service-card-base vaccinations-light dark:vaccinations-dark p-6 rounded-lg shadow-md">
+                    <div class="mb-4"><i class="fas fa-syringe text-4xl text-indigo-600 main-icon"></i></div>
+                    <h3 class="text-xl font-bold mb-3 text-indigo-700">Vaccinations</h3>
+                    <p class="text-gray-600 mb-4 text-sm">Protect your pets from serious diseases with our vaccination services.</p>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-center"><i class="fas fa-cat text-indigo-500 mr-2"></i><span>Cat Flu Vaccine: 1500 BDT</span></li>
+                        <li class="flex items-center"><i class="fas fa-dog text-indigo-500 mr-2"></i><span>Dog Parvo Vaccine: 1500 BDT</span></li>
+                    </ul>
+                </div>
+                <div class="service-card-base surgical-services-light dark:surgical-services-dark p-6 rounded-lg shadow-md">
+                    <div class="mb-4"><i class="fas fa-procedures text-4xl text-purple-600 main-icon"></i></div>
+                    <h3 class="text-xl font-bold mb-3 text-purple-700">Surgical Services</h3>
+                    <p class="text-gray-600 mb-4 text-sm">Professional surgical procedures performed by our experienced veterinarians.</p>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-center"><i class="fas fa-male text-purple-500 mr-2"></i><span>Neuter (Male): 2000 BDT</span></li>
+                        <li class="flex items-center"><i class="fas fa-female text-purple-500 mr-2"></i><span>Spay (Female): 3500 BDT</span></li>
+                    </ul>
+                </div>
+                <div class="service-card-base grooming-light dark:grooming-dark p-6 rounded-lg shadow-md">
+                    <div class="mb-4"><i class="fas fa-spa text-4xl text-pink-600 main-icon"></i></div>
+                    <h3 class="text-xl font-bold mb-3 text-pink-700">Grooming Services</h3>
+                    <p class="text-gray-600 mb-4 text-sm">Keep your pet looking and feeling their best with our professional grooming services.</p>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-center"><i class="fas fa-cut text-pink-500 mr-2"></i><span>Haircut & Styling</span></li>
+                        <li class="flex items-center"><i class="fas fa-bath text-pink-500 mr-2"></i><span>Bath & Brush</span></li>
+                        <li class="flex items-center"><i class="fas fa-tooth text-pink-500 mr-2"></i><span>Teeth Cleaning</span></li>
+                    </ul>
+                </div>
+                <div class="service-card-base deworming-light dark:deworming-dark p-6 rounded-lg shadow-md">
+                    <div class="mb-4"><i class="fas fa-pills text-4xl text-emerald-600 main-icon"></i></div>
+                    <h3 class="text-xl font-bold mb-3 text-emerald-700">De-worming Services</h3>
+                    <p class="text-gray-600 mb-4 text-sm">Complete de-worming treatment with medication, feeding and medical certificate included.</p>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-center"><i class="fas fa-syringe text-emerald-500 mr-2"></i><span>Full De-worming Package: 350 BDT</span></li>
+                        <li class="flex items-center"><i class="fas fa-pills text-emerald-500 mr-2"></i><span>Medicine Only: 100 BDT</span></li>
+                    </ul>
+                </div>
+                <div class="service-card-base diagnostic-center-card-light dark:diagnostic-center-card-dark p-6 rounded-lg shadow-md">
+                    <div class="mb-4"><i class="fas fa-microscope text-4xl text-amber-600 main-icon"></i></div>
+                    <h3 class="text-xl font-bold mb-3 text-amber-700">Diagnostic Center</h3>
+                    <p class="text-gray-600 mb-4 text-sm">Advanced diagnostic tools to accurately identify your pet's health conditions.</p>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-center"><i class="fas fa-vial text-amber-500 mr-2"></i><span>Blood Tests</span></li>
+                        <li class="flex items-center"><i class="fas fa-x-ray text-amber-500 mr-2"></i><span>X-Ray Imaging</span></li>
+                        <li class="flex items-center"><i class="fas fa-utensils text-amber-500 mr-2"></i><span>Nutritional Consultation</span></li>
+                    </ul>
+                </div>
+                <div class="service-card-base emergency-light dark:emergency-dark p-6 rounded-lg shadow-md col-span-1 md:col-span-2 lg:col-span-1 lg:col-start-2"><!-- Centering last item on large screens if odd number -->
+                    <div class="mb-4"><i class="fas fa-ambulance text-4xl text-red-600 main-icon"></i></div>
+                    <h3 class="text-xl font-bold mb-3 text-red-700">Emergency Care</h3>
+                    <p class="text-gray-600 mb-4 text-sm">24/7 emergency services available for urgent veterinary needs.</p>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-center"><i class="fas fa-phone text-red-500 mr-2"></i><span>01999-727389</span></li>
+                        <li class="flex items-center"><i class="fas fa-clock text-red-500 mr-2"></i><span>Available 24/7</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-16 bg-gray-50 dark:bg-slate-850 transition-colors duration-300">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-[#086f9c] dark:text-[#0e9ad1] mb-4">Service Pricing</h2>
+                <div class="w-24 h-1 bg-[#0b82b5] dark:bg-[#0e9ad1] mx-auto"></div>
+                <p class="mt-6 text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">Transparent pricing for all our veterinary services</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-white dark:bg-slate-800 p-6 rounded-lg shadow-md border-t-4 border-[#0b82b5] dark:border-[#0e9ad1] transition-colors duration-300">
+                    <h3 class="text-xl font-bold mb-4 text-[#086f9c] dark:text-[#0e9ad1]">Health Checkups</h3>
+                    <ul class="space-y-3">
+                        <li class="flex justify-between py-2 border-b border-gray-200 dark:border-slate-700"><span class="text-gray-600 dark:text-gray-400">Cat Checkup</span><span class="font-bold text-gray-800 dark:text-gray-200">600 BDT</span></li>
+                        <li class="flex justify-between py-2 border-b border-gray-200 dark:border-slate-700"><span class="text-gray-600 dark:text-gray-400">Dog Checkup</span><span class="font-bold text-gray-800 dark:text-gray-200">600 BDT</span></li>
+                        <li class="flex justify-between py-2 border-b border-gray-200 dark:border-slate-700"><span class="text-gray-600 dark:text-gray-400">Bird Checkup</span><span class="font-bold text-gray-800 dark:text-gray-200">350 BDT</span></li>
+                        <li class="flex justify-between py-2 border-b border-gray-200 dark:border-slate-700"><span class="text-gray-600 dark:text-gray-400">Full De-worming Package</span><span class="font-bold text-gray-800 dark:text-gray-200">350 BDT</span></li>
+                        <li class="flex justify-between py-2 border-b border-gray-200 dark:border-slate-700"><span class="text-gray-600 dark:text-gray-400">De-worming Medicine Only</span><span class="font-bold text-gray-800 dark:text-gray-200">100 BDT</span></li>
+                    </ul>
+                </div>
+                <div class="bg-white dark:bg-slate-800 p-6 rounded-lg shadow-md border-t-4 border-indigo-500 dark:border-indigo-400 transition-colors duration-300">
+                    <h3 class="text-xl font-bold mb-4 text-indigo-700 dark:text-indigo-300">Vaccinations</h3>
+                    <ul class="space-y-3">
+                        <li class="flex justify-between py-2 border-b border-gray-200 dark:border-slate-700"><span class="text-gray-600 dark:text-gray-400">Cat Flu Vaccine</span><span class="font-bold text-gray-800 dark:text-gray-200">1500 BDT</span></li>
+                        <li class="flex justify-between py-2 border-b border-gray-200 dark:border-slate-700"><span class="text-gray-600 dark:text-gray-400">Dog Parvo Vaccine</span><span class="font-bold text-gray-800 dark:text-gray-200">1500 BDT</span></li>
+                        <li class="flex justify-between py-2 border-b border-gray-200 dark:border-slate-700"><span class="text-gray-600 dark:text-gray-400">Rabies Vaccine</span><span class="font-bold text-gray-800 dark:text-gray-200">350 BDT</span></li>
+                        <li class="flex justify-between py-2 border-b border-gray-200 dark:border-slate-700"><span class="text-gray-600 dark:text-gray-400">Other Vaccines</span><span class="font-bold text-gray-800 dark:text-gray-200">Ask for price</span></li>
+                    </ul>
+                </div>
+                <div class="bg-white dark:bg-slate-800 p-6 rounded-lg shadow-md border-t-4 border-purple-500 dark:border-purple-400 transition-colors duration-300">
+                    <h3 class="text-xl font-bold mb-4 text-purple-700 dark:text-purple-300">Surgical Services</h3>
+                    <ul class="space-y-3">
+                        <li class="flex justify-between py-2 border-b border-gray-200 dark:border-slate-700"><span class="text-gray-600 dark:text-gray-400">Neuter (Male)</span><span class="font-bold text-gray-800 dark:text-gray-200">2000 BDT</span></li>
+                        <li class="flex justify-between py-2 border-b border-gray-200 dark:border-slate-700"><span class="text-gray-600 dark:text-gray-400">Spay (Female)</span><span class="font-bold text-gray-800 dark:text-gray-200">3500 BDT</span></li>
+                        <li class="flex justify-between py-2 border-b border-gray-200 dark:border-slate-700"><span class="text-gray-600 dark:text-gray-400">Other Surgeries</span><span class="font-bold text-gray-800 dark:text-gray-200">Ask for price</span></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="bg-[#e0f2f7] dark:bg-[#086a94]/30 rounded-lg p-6 mt-8 max-w-4xl mx-auto text-center border border-[#0e9ad1] dark:border-[#075985] transition-colors duration-300">
+                <h3 class="text-xl font-bold mb-2 text-[#086f9c] dark:text-[#0e9ad1]">Special Offers</h3>
+                <p class="text-[#0b82b5] dark:text-[#67d2f3] mb-4">We offer package deals and discounts for multiple pets or recurring services.</p>
+                <button class="bg-[#0b82b5] hover:bg-[#086f9c] text-white py-2 px-6 rounded-full transition"><a href="tel:01999727389" class="text-white hover:text-blue-400">Ask about Discounts</a></button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 bg-white dark:bg-slate-800 transition-colors duration-300">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-[#086f9c] dark:text-[#0e9ad1] mb-4">Contact Us</h2>
+                <div class="w-24 h-1 bg-[#0b82b5] dark:bg-[#0e9ad1] mx-auto"></div>
+                <p class="mt-6 text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">Get in touch to schedule an appointment or ask any questions about your pet's health</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-[#e0f2f7] dark:bg-slate-700 p-6 rounded-lg shadow-md transition-colors duration-300">
+                    <h3 class="text-2xl font-bold mb-6 text-[#086f9c] dark:text-[#0e9ad1]">Contact Information</h3>
+                    <div class="space-y-6">
+                        <div class="flex items-start"><div class="text-[#0b82b5] dark:text-[#0e9ad1] mr-4 mt-1"><i class="fas fa-phone-alt text-xl"></i></div><div><h4 class="font-bold text-gray-800 dark:text-gray-200">Phone</h4></i><a href="tel:01999727389" class="text-gray-900 hover:text-blue-300">01999-727389</a></li></div></div>
+                        <div class="flex items-start"><div class="text-[#0b82b5] dark:text-[#0e9ad1] mr-4 mt-1"><i class="fas fa-map-marker-alt text-xl"></i></div><div><h4 class="font-bold text-gray-800 dark:text-gray-200">Location</h4><p class="text-gray-900 dark:text-gray-400">ইয়াকুবিয়া গার্লস স্কুল এর ঠিক বিপরীত পাশে, Cafe Bar-B-Q এর দ্বিতীয় তলা, Pet's Care Clinic & Diagnostic Centre</p></div></div>
+                        <div class="flex items-start"><div class="text-[#0b82b5] dark:text-[#0e9ad1] mr-4 mt-1"><i class="fab fa-facebook-f text-xl"></i></div><div><h4 class="font-bold text-gray-800 dark:text-gray-200">Facebook</h4><a href="https://www.facebook.com/profile.php?id=61565348671946" class="text-[#0b82b5] dark:text-[#0e9ad1] hover:underline" target="_blank">Pet's Care Clinic & Diagnostic Centre</a></div></div>
+                        <div class="flex items-start"><div class="text-[#0b82b5] dark:text-[#0e9ad1] mr-4 mt-1"><i class="fas fa-clock text-xl"></i></div><div><h4 class="font-bold text-gray-800 dark:text-gray-200">Hours</h4><p class="text-gray-900 dark:text-gray-400">Monday - Saturday: 9:00 AM - 8:00 PM<br>Sunday: 10:00 AM - 6:00 PM<br>Emergency Services: 24/7</p></div></div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-2xl font-bold mb-6 text-[#086f9c] dark:text-[#0e9ad1]">Our Location</h3>
+                
+                    <div class="map-container bg-gray-100 dark:bg-slate-700 rounded-lg overflow-hidden shadow-md transition-colors duration-300">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3097.2718081862877!2d89.37083857455403!3d24.84488144588226!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39fc5518fee13ef7%3A0x96c53355c59d083a!2sPet&#39;s%20Care%20Clinic%20%26%20Diagnostic%20Centre!5e1!3m2!1sen!2sbd!4v1748971772264!5m2!1sen!2sbd" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 bg-[#0b82b5] dark:bg-[#086a94] text-white p-8 rounded-lg shadow-lg transition-colors duration-300">
+                <div class="max-w-4xl mx-auto">
+                    <h3 class="text-2xl font-bold mb-4">Book an Appointment</h3>
+                    <p class="mb-6 text-[#e0f2f7] dark:text-[#ccecf5]">Fill out the form below to schedule an appointment for your pet</p>
+                    
+                    <form id="appointmentForm" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div><label for="name" class="block mb-2">Your Name</label><input type="text" id="name" name="name" class="w-full px-4 py-2 rounded bg-[#086f9c] dark:bg-[#075985] border border-[#075985] dark:border-[#064e6e] focus:outline-none focus:ring-2 focus:ring-yellow-400 text-white placeholder-[#ccecf5] dark:placeholder-[#9ccddc]" required></div>
+                        <div><label for="phone" class="block mb-2">Phone Number</label><input type="tel" id="phone" name="phone" class="w-full px-4 py-2 rounded bg-[#086f9c] dark:bg-[#075985] border border-[#075985] dark:border-[#064e6e] focus:outline-none focus:ring-2 focus:ring-yellow-400 text-white placeholder-[#ccecf5] dark:placeholder-[#9ccddc]" required></div>
+                        <div class="md:col-span-2"><label for="pet" class="block mb-2">Pet Type</label><select id="pet" name="pet" class="w-full px-4 py-2 rounded bg-[#086f9c] dark:bg-[#075985] border border-[#075985] dark:border-[#064e6e] focus:outline-none focus:ring-2 focus:ring-yellow-400 text-white" required><option value="" disabled selected>Select pet type</option><option value="cat">Cat</option><option value="dog">Dog</option><option value="bird">Bird</option><option value="other">Other</option></select></div>
+                        <div class="md:col-span-2"><label for="service" class="block mb-2">Service Needed</label><select id="service" name="service" class="w-full px-4 py-2 rounded bg-[#086f9c] dark:bg-[#075985] border border-[#075985] dark:border-[#064e6e] focus:outline-none focus:ring-2 focus:ring-yellow-400 text-white" required><option value="" disabled selected>Select service</option><option value="checkup">Health Checkup</option><option value="vaccine">Vaccination</option><option value="surgery">Surgical Service</option><option value="grooming">Grooming</option><option value="emergency">Emergency</option><option value="other">Other</option></select></div>
+                        <div class="md:col-span-2"><label for="message" class="block mb-2">Message (Optional)</label><textarea id="message" name="message" rows="4" class="w-full px-4 py-2 rounded bg-[#086f9c] dark:bg-[#075985] border border-[#075985] dark:border-[#064e6e] focus:outline-none focus:ring-2 focus:ring-yellow-400 text-white placeholder-[#ccecf5] dark:placeholder-[#9ccddc]"></textarea></div>
+                        <div class="md:col-span-2"><button type="submit" class="bg-yellow-400 hover:bg-yellow-300 text-[#086a94] dark:bg-yellow-500 dark:hover:bg-yellow-400 dark:text-gray-900 font-bold py-3 px-8 rounded-full transition transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-yellow-500 dark:focus:ring-yellow-300 focus:ring-offset-2 focus:ring-offset-[#0b82b5] dark:focus:ring-offset-[#086a94]">Submit Appointment Request</button></div>
+                    </form>
+                    <div id="form-submission-message" class="mt-4 text-center"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- FAQ Section -->
+    <section class="py-16 bg-gray-50 dark:bg-slate-850 transition-colors duration-300">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-[#086f9c] dark:text-[#0e9ad1] mb-4">Frequently Asked Questions</h2>
+                <div class="w-24 h-1 bg-[#0b82b5] dark:bg-[#0e9ad1] mx-auto"></div>
+                <p class="mt-6 text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">Common questions about our veterinary services</p>
+            </div>
+            <div class="max-w-3xl mx-auto space-y-4">
+                <div class="collapse-container border border-gray-200 dark:border-slate-700 rounded-lg overflow-hidden bg-white dark:bg-slate-800 transition-colors duration-300">
+                    <button class="collapse-trigger flex justify-between items-center w-full p-6 text-left hover:bg-gray-100 dark:hover:bg-slate-700/50 transition">
+                        <span class="text-lg font-medium text-[#086f9c] dark:text-[#0e9ad1]">How often should my pet have a health checkup?</span>
+                        <i class="fas fa-chevron-down text-[#0b82b5] dark:text-[#0e9ad1] transition-transform duration-200"></i>
+                    </button>
+                    <div class="collapse-content px-6 pb-6 pt-0 hidden text-gray-600 dark:text-gray-400"><p class="mt-2">We recommend annual health checkups for young, healthy pets. Senior pets (7+ years) or pets with health conditions may need checkups every 6 months. Regular checkups help detect potential health issues early when they are most treatable.</p></div>
+                </div>
+                <div class="collapse-container border border-gray-200 dark:border-slate-700 rounded-lg overflow-hidden bg-white dark:bg-slate-800 transition-colors duration-300">
+                    <button class="collapse-trigger flex justify-between items-center w-full p-6 text-left hover:bg-gray-100 dark:hover:bg-slate-700/50 transition">
+                        <span class="text-lg font-medium text-[#086f9c] dark:text-[#0e9ad1]">What vaccinations does my pet need?</span>
+                        <i class="fas fa-chevron-down text-[#0b82b5] dark:text-[#0e9ad1] transition-transform duration-200"></i>
+                    </button>
+                    <div class="collapse-content px-6 pb-6 pt-0 hidden text-gray-600 dark:text-gray-400"><p class="mt-2">Vaccination requirements vary by species, age, and lifestyle. Core vaccines for cats include rabies and feline distemper. Dogs typically need rabies, distemper, parvovirus, and adenovirus vaccines. Our veterinarians will create a customized vaccination schedule based on your pet's specific needs.</p></div>
+                </div>
+                <div class="collapse-container border border-gray-200 dark:border-slate-700 rounded-lg overflow-hidden bg-white dark:bg-slate-800 transition-colors duration-300">
+                    <button class="collapse-trigger flex justify-between items-center w-full p-6 text-left hover:bg-gray-100 dark:hover:bg-slate-700/50 transition">
+                        <span class="text-lg font-medium text-[#086f9c] dark:text-[#0e9ad1]">When should I spay or neuter my pet?</span>
+                        <i class="fas fa-chevron-down text-[#0b82b5] dark:text-[#0e9ad1] transition-transform duration-200"></i>
+                    </button>
+                    <div class="collapse-content px-6 pb-6 pt-0 hidden text-gray-600 dark:text-gray-400"><p class="mt-2">We typically recommend spaying or neutering between 4-6 months of age for cats and 6-9 months for dogs, but this can vary based on breed and individual development. Early spaying/neutering helps prevent unwanted litters and can reduce certain health risks and behavioral issues.</p></div>
+                </div>
+                 <div class="collapse-container border border-gray-200 dark:border-slate-700 rounded-lg overflow-hidden bg-white dark:bg-slate-800 transition-colors duration-300">
+                    <button class="collapse-trigger flex justify-between items-center w-full p-6 text-left hover:bg-gray-100 dark:hover:bg-slate-700/50 transition">
+                        <span class="text-lg font-medium text-[#086f9c] dark:text-[#0e9ad1]">What are your emergency procedures?</span>
+                        <i class="fas fa-chevron-down text-[#0b82b5] dark:text-[#0e9ad1] transition-transform duration-200"></i>
+                    </button>
+                    <div class="collapse-content px-6 pb-6 pt-0 hidden text-gray-600 dark:text-gray-400"><p class="mt-2">For emergencies during clinic hours, please call ahead if possible (01999-727389) so we can prepare for your arrival. After hours, call the same number and you'll be directed to the on-call veterinarian. Never hesitate to seek emergency care if your pet is experiencing distress.</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Testimonials -->
+    <section class="py-16 bg-[#0b82b5] dark:bg-[#086a94] text-white transition-colors duration-300">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">What Our Clients Say</h2>
+                <div class="w-24 h-1 bg-yellow-400 dark:bg-yellow-500 mx-auto"></div>
+                <p class="mt-6 text-[#e0f2f7] dark:text-[#ccecf5] max-w-3xl mx-auto">Hear from pet owners who trust us with their furry family members</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-[#086f9c] dark:bg-[#075985] p-6 rounded-lg shadow-lg transition-colors duration-300">
+                    <div class="flex items-center mb-4 text-yellow-400 dark:text-yellow-500 text-xl"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="text-[#e0f2f7] dark:text-[#ccecf5] mb-4 text-sm">"The team at Pet's Care Clinic & Diagnostic Centre & Diagnostic Centre has been wonderful with my Persian cat Muffin. They're gentle, knowledgeable, and truly care about her wellbeing. The facilities are clean and modern."</p>
+                    <div class="flex items-center"><div class="w-12 h-12 rounded-full bg-[#075985] dark:bg-[#064e6e] flex items-center justify-center mr-4"><i class="fas fa-user text-xl text-white"></i></div><div><h4 class="font-bold text-white">Ayesha Rahman</h4><p class="text-[#ccecf5] dark:text-[#b0e0e6] text-xs">Cat Owner</p></div></div>
+                </div>
+                <div class="bg-[#086f9c] dark:bg-[#075985] p-6 rounded-lg shadow-lg transition-colors duration-300">
+                    <div class="flex items-center mb-4 text-yellow-400 dark:text-yellow-500 text-xl"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="text-[#e0f2f7] dark:text-[#ccecf5] mb-4 text-sm">"When my Labrador Max needed emergency surgery, the doctors at Pet's Care Clinic & Diagnostic Centre were amazing. They saved his life and followed up with outstanding aftercare. Forever grateful!"</p>
+                    <div class="flex items-center"><div class="w-12 h-12 rounded-full bg-[#075985] dark:bg-[#064e6e] flex items-center justify-center mr-4"><i class="fas fa-user text-xl text-white"></i></div><div><h4 class="font-bold text-white">Rafiqul Islam</h4><p class="text-[#ccecf5] dark:text-[#b0e0e6] text-xs">Dog Owner</p></div></div>
+                </div>
+                <div class="bg-[#086f9c] dark:bg-[#075985] p-6 rounded-lg shadow-lg transition-colors duration-300">
+                    <div class="flex items-center mb-4 text-yellow-400 dark:text-yellow-500 text-xl"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="text-[#e0f2f7] dark:text-[#ccecf5] mb-4 text-sm">"I bring all my 5 pet parrots here for regular checkups. The bird care specialist is excellent and they always handle my birds with such care. Prices are reasonable too."</p>
+                    <div class="flex items-center"><div class="w-12 h-12 rounded-full bg-[#075985] dark:bg-[#064e6e] flex items-center justify-center mr-4"><i class="fas fa-user text-xl text-white"></i></div><div><h4 class="font-bold text-white">Nusrat Jahan</h4><p class="text-[#ccecf5] dark:text-[#b0e0e6] text-xs">Bird Owner</p></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Gallery -->
+    <section class="py-16 bg-gray-100 dark:bg-slate-800 transition-colors duration-300">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-[#086f9c] dark:text-[#0e9ad1] mb-4">Our Clinic & Patients</h2>
+                <div class="w-24 h-1 bg-[#0b82b5] dark:bg-[#0e9ad1] mx-auto"></div>
+                <p class="mt-6 text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">A glimpse into our facility and the pets we care for</p>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <a href="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" target="_blank" class="gallery-item block overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300 group">
+                    <img src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Vet examining dog" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500">
+                </a>
+                <a href="https://images.unsplash.com/photo-1601758003122-53c40e686a19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" target="_blank" class="gallery-item block overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300 group">
+                    <img src="https://images.unsplash.com/photo-1601758003122-53c40e686a19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Vet examining cat" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500">
+                </a>
+                <a href="https://images.unsplash.com/photo-1601001815894-4bb6d1c3fb1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" target="_blank" class="gallery-item block overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300 group">
+                    <img src="https://images.unsplash.com/photo-1601001815894-4bb6d1c3fb1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Vaccination process" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500">
+                </a>
+                <a href="https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" target="_blank" class="gallery-item block overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300 group">
+                    <img src="https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Pet grooming session" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500">
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="bg-[#0b82b5] dark:bg-[#086a94] text-white pt-12 pb-6 transition-colors duration-300">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <a href="#home" class="flex items-center space-x-2 mb-4">
+                        <i class="fas fa-paw text-2xl"></i>
+                        <span class="text-xl font-bold">Pet's Care Clinic & Diagnostic Centre</span>
+                    </a>
+                    <p class="mb-4 text-[#e0f2f7] dark:text-[#ccecf5] text-sm">Compassionate veterinary care for your beloved pets in Bangladesh.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4 text-yellow-300">Quick Links</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#home" class="text-[#e0f2f7] dark:text-[#ccecf5] hover:text-yellow-300 transition">Home</a></li>
+                        <li><a href="#services" class="text-[#e0f2f7] dark:text-[#ccecf5] hover:text-yellow-300 transition">Services</a></li>
+                        <li><a href="#pricing" class="text-[#e0f2f7] dark:text-[#ccecf5] hover:text-yellow-300 transition">Pricing</a></li>
+                        <li><a href="#contact" class="text-[#e0f2f7] dark:text-[#ccecf5] hover:text-yellow-300 transition">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4 text-yellow-300">Services</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#services" class="text-[#e0f2f7] dark:text-[#ccecf5] hover:text-yellow-300 transition">Health Checkups</a></li>
+                        <li><a href="#services" class="text-[#e0f2f7] dark:text-[#ccecf5] hover:text-yellow-300 transition">Vaccinations</a></li>
+                        <li><a href="#services" class="text-[#e0f2f7] dark:text-[#ccecf5] hover:text-yellow-300 transition">Surgical Services</a></li>
+                        <li><a href="#services" class="text-[#e0f2f7] dark:text-[#ccecf5] hover:text-yellow-300 transition">Grooming</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4 text-yellow-300">Contact Info</h3>
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex items-start"><i class="fas fa-map-marker-alt mt-1 mr-2 text-yellow-300"></i><span class="text-[#e0f2f7] dark:text-[#ccecf5]">ইয়াকুবিয়া গার্লস স্কুল এর ঠিক বিপরীত প্বার্শে, Cafe Bar-B-Q এর দ্বিতীয় তলা, Pet's Care Clinic & Diagnostic Centre</span></li>
+                        <li class="flex items-center"><i class="fas fa-phone-alt mr-2 text-yellow-300"></i><a href="tel:01999727389" class="text-[#e0f2f7] dark:text-[#ccecf5] hover:text-yellow-300">01999-727389</a></li>
+                        <li class="flex items-center"><i class="fas fa-clock mr-2 text-yellow-300"></i><span class="text-[#e0f2f7] dark:text-[#ccecf5]">9:00 AM - 8:00 PM (Mon-Sat)</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-[#086f9c] dark:border-[#075985] pt-6 text-center text-[#ccecf5] dark:text-[#b0e0e6] text-sm">
+                <p>© <span id="currentYear"></span> Pet's Care Clinic & Diagnostic Centre. All Rights Reserved.</p>
+                <p class="mt-2">Designed with <i class="fas fa-heart text-red-400"></i> for your pets' wellbeing</p>
+            </div>
+        </div>
+    </footer>
+    
+    <div class="floating-btn">
+        <a href="https://wa.me/8801999727389" target="_blank" class="bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition transform hover:scale-110 flex items-center justify-center pulse" aria-label="Chat on WhatsApp">
+            <i class="fab fa-whatsapp text-2xl"></i>
+        </a>
+    </div>
+    
+    <button id="back-to-top" class="fixed bottom-20 right-4 md:bottom-5 md:right-5 bg-[#0b82b5] dark:bg-[#0e9ad1] text-white p-3 rounded-full shadow-lg hidden hover:bg-[#086f9c] dark:hover:bg-[#0b82b5] transition focus:outline-none" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    
+    <script>
+        // --- Theme Toggle ---
+        const themeToggleDesktopBtn = document.getElementById('theme-toggle-desktop');
+        const themeToggleMobileBtn = document.getElementById('theme-toggle-mobile');
+        const htmlElement = document.documentElement;
+        const sunIconClass = 'fa-sun';
+        const moonIconClass = 'fa-moon';
+
+        function updateButtonIcons(isDark) {
+            const iconToAdd = isDark ? sunIconClass : moonIconClass;
+            const iconToRemove = isDark ? moonIconClass : sunIconClass;
+            [themeToggleDesktopBtn, themeToggleMobileBtn].forEach(btn => {
+                if (btn) {
+                    const iconElement = btn.querySelector('i');
+                    if (iconElement) {
+                        iconElement.classList.remove(iconToRemove);
+                        iconElement.classList.add(iconToAdd);
+                    }
+                }
+            });
+        }
+
+        function applyTheme(theme) {
+            const isDark = theme === 'dark';
+            htmlElement.classList.toggle('dark', isDark);
+            updateButtonIcons(isDark);
+            localStorage.setItem('petClinicTheme', theme);
+        }
+
+        function toggleTheme() {
+            const isCurrentlyDark = htmlElement.classList.contains('dark');
+            applyTheme(isCurrentlyDark ? 'light' : 'dark');
+        }
+
+        if (themeToggleDesktopBtn) themeToggleDesktopBtn.addEventListener('click', toggleTheme);
+        if (themeToggleMobileBtn) themeToggleMobileBtn.addEventListener('click', toggleTheme);
+
+        const savedTheme = localStorage.getItem('petClinicTheme');
+        if (savedTheme) {
+            applyTheme(savedTheme);
+        } else {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                applyTheme('dark');
+            } else {
+                applyTheme('light');
+            }
+        }
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+            if (!localStorage.getItem('petClinicTheme')) {
+                applyTheme(e.matches ? 'dark' : 'light');
+            }
+        });
+
+        // --- Mobile menu toggle ---
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (mobileMenuButton && mobileMenu) {
+            mobileMenuButton.addEventListener('click', function() {
+                const isHidden = mobileMenu.classList.toggle('hidden');
+                mobileMenuButton.setAttribute('aria-expanded', String(!isHidden));
+            });
+        }
+        
+        // --- FAQ accordion ---
+        const collapseTriggers = document.querySelectorAll('.collapse-trigger');
+        collapseTriggers.forEach(trigger => {
+            trigger.addEventListener('click', function() {
+                const content = this.nextElementSibling;
+                const icon = this.querySelector('i.fa-chevron-down');
+                content.classList.toggle('hidden');
+                icon.classList.toggle('rotate-180');
+            });
+        });
+        
+        // --- Back to top button ---
+        const backToTopButton = document.getElementById('back-to-top');
+        if (backToTopButton) {
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) { backToTopButton.classList.remove('hidden'); } 
+                else { backToTopButton.classList.add('hidden'); }
+            });
+            backToTopButton.addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+        }
+        
+        // --- Appointment Form submission ---
+        const appointmentForm = document.getElementById('appointmentForm');
+        const formSubmissionMessageEl = document.getElementById('form-submission-message');
+        if (appointmentForm && formSubmissionMessageEl) {
+            appointmentForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const formData = new FormData(appointmentForm);
+                let allRequiredFilled = true;
+                ['name', 'phone', 'pet', 'service'].forEach(fieldName => {
+                    if (!formData.get(fieldName)) allRequiredFilled = false;
+                });
+
+                if (!allRequiredFilled) {
+                    formSubmissionMessageEl.textContent = 'Please fill out all required fields.';
+                    formSubmissionMessageEl.className = 'mt-4 text-center text-red-500 dark:text-red-400';
+                    return;
+                }
+                formSubmissionMessageEl.textContent = 'Thank you! Your appointment request has been submitted.';
+                formSubmissionMessageEl.className = 'mt-4 text-center text-green-500 dark:text-green-400';
+                appointmentForm.reset();
+                setTimeout(() => { formSubmissionMessageEl.textContent = ''; }, 5000);
+            });
+        }
+
+        // --- Update current year in footer ---
+        const currentYearSpan = document.getElementById('currentYear');
+        if (currentYearSpan) { currentYearSpan.textContent = new Date().getFullYear(); }
+
+        // --- Smooth scroll for nav links & close mobile menu ---
+        document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                        if(mobileMenuButton) mobileMenuButton.setAttribute('aria-expanded', 'false');
+                    }
+                    const navbarHeight = document.querySelector('nav').offsetHeight || 70; // Default to 70 if nav not found
+                    const elementPosition = targetElement.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
+                    window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
