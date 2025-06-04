@@ -535,20 +535,68 @@
                 </div>
             </div>
             
-             <div class="mt-12 text-white p-8 shadow-lg transition-colors duration-300"> <!-- Removed bg-[#0b82b5], rounded-lg handled by CSS -->
-                <div class="max-w-4xl mx-auto">
-                    <h3 class="text-2xl font-bold mb-4">Book an Appointment</h3>
-                    <p class="mb-6">Fill out the form below to schedule an appointment for your pet</p> <!-- Removed text-[#e0f2f7] -->
-                    
-                    <form id="appointmentForm" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div><label for="name" class="block mb-2">Your Name</label><input type="text" id="name" name="name" class="w-full px-4 py-2 border focus:outline-none focus:ring-2 text-white" required></div> <!-- bg, border, placeholder, rounded color from variables/CSS -->
-                        <div><label for="phone" class="block mb-2">Phone Number</label><input type="tel" id="phone" name="phone" class="w-full px-4 py-2 border focus:outline-none focus:ring-2 text-white" required></div>
-                        <div class="md:col-span-2"><label for="pet" class="block mb-2">Pet Type</label><select id="pet" name="pet" class="w-full px-4 py-2 border focus:outline-none focus:ring-2 text-white" required><option value="" disabled selected>Select pet type</option><option value="cat">Cat</option><option value="dog">Dog</option><option value="bird">Bird</option><option value="other">Other</option></select></div>
-                        <div class="md:col-span-2"><label for="service" class="block mb-2">Service Needed</label><select id="service" name="service" class="w-full px-4 py-2 border focus:outline-none focus:ring-2 text-white" required><option value="" disabled selected>Select service</option><option value="checkup">Health Checkup</option><option value="vaccine">Vaccination</option><option value="surgery">Surgical Service</option><option value="grooming">Grooming</option><option value="emergency">Emergency</option><option value="other">Other</option></select></div>
-                        <div class="md:col-span-2"><label for="message" class="block mb-2">Message (Optional)</label><textarea id="message" name="message" rows="4" class="w-full px-4 py-2 border focus:outline-none focus:ring-2 text-white"></textarea></div>
-                        <div class="md:col-span-2"><button type="submit" class="font-bold py-3 px-8 transition transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2">Submit Appointment Request</button></div> <!-- bg, text, focus offset, rounded-full color from variables/CSS -->
-                    </form>
-                    <div id="form-submission-message" class="mt-4 text-center"></div>
+             <div class="mt-12 bg-[#0b82b5] dark:bg-[#086a94] text-white p-8 rounded-lg shadow-lg transition-colors duration-300">
+  <div class="max-w-4xl mx-auto">
+    <h3 class="text-2xl font-bold mb-4">Book an Appointment</h3>
+    <p class="mb-6 text-[#e0f2f7] dark:text-[#ccecf5]">Fill out the form below to schedule an appointment for your pet</p>
+
+    <form id="appointmentForm" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Name -->
+      <div>
+        <label for="name" class="block mb-2">Your Name</label>
+        <input type="text" id="name" name="name" placeholder="Enter your name" class="w-full px-4 py-2 rounded bg-[#086f9c] dark:bg-[#075985] border border-[#075985] dark:border-[#064e6e] focus:outline-none focus:ring-2 focus:ring-yellow-400 text-white placeholder-[#ccecf5] dark:placeholder-[#9ccddc]" required>
+      </div>
+
+      <!-- Phone -->
+      <div>
+        <label for="phone" class="block mb-2">Phone Number</label>
+        <input type="tel" id="phone" name="phone" placeholder="Enter phone number" class="w-full px-4 py-2 rounded bg-[#086f9c] dark:bg-[#075985] border border-[#075985] dark:border-[#064e6e] focus:outline-none focus:ring-2 focus:ring-yellow-400 text-white placeholder-[#ccecf5] dark:placeholder-[#9ccddc]" required>
+      </div>
+
+      <!-- Pet Type -->
+      <div class="md:col-span-2">
+        <label for="pet" class="block mb-2">Pet Type</label>
+        <select id="pet" name="pet" class="w-full px-4 py-2 rounded bg-[#086f9c] dark:bg-[#075985] border border-[#075985] dark:border-[#064e6e] focus:outline-none focus:ring-2 focus:ring-yellow-400 text-white" required>
+          <option value="" disabled selected>Select pet type</option>
+          <option value="cat">Cat</option>
+          <option value="dog">Dog</option>
+          <option value="bird">Bird</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+
+      <!-- Service -->
+      <div class="md:col-span-2">
+        <label for="service" class="block mb-2">Service Needed</label>
+        <select id="service" name="service" class="w-full px-4 py-2 rounded bg-[#086f9c] dark:bg-[#075985] border border-[#075985] dark:border-[#064e6e] focus:outline-none focus:ring-2 focus:ring-yellow-400 text-white" required>
+          <option value="" disabled selected>Select service</option>
+          <option value="checkup">Health Checkup</option>
+          <option value="vaccine">Vaccination</option>
+          <option value="surgery">Surgical Service</option>
+          <option value="grooming">Grooming</option>
+          <option value="emergency">Emergency</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+
+      <!-- Message -->
+      <div class="md:col-span-2">
+        <label for="message" class="block mb-2">Message (Optional)</label>
+        <textarea id="message" name="message" rows="4" placeholder="Write something..." class="w-full px-4 py-2 rounded bg-[#086f9c] dark:bg-[#075985] border border-[#075985] dark:border-[#064e6e] focus:outline-none focus:ring-2 focus:ring-yellow-400 text-white placeholder-[#ccecf5] dark:placeholder-[#9ccddc]"></textarea>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="md:col-span-2">
+        <button type="submit" class="bg-yellow-400 hover:bg-yellow-300 text-[#086a94] dark:bg-yellow-500 dark:hover:bg-yellow-400 dark:text-gray-900 font-bold py-3 px-8 rounded-full transition transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-yellow-500 dark:focus:ring-yellow-300 focus:ring-offset-2 focus:ring-offset-[#0b82b5] dark:focus:ring-offset-[#086a94]">
+          Submit Appointment Request
+        </button>
+      </div>
+    </form>
+
+    <div id="form-submission-message" class="mt-4 text-center"></div>
+  </div>
+</div>
+
                 </div>
             </div>
         </div>
